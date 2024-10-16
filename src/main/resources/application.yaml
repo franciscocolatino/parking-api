@@ -1,19 +1,9 @@
 spring:
+  flyway:
+    enabled: true
   datasource:
-    hikari:
-      connection-test-query: SELECT 1
-      minimum-idle: 1
-      maximum-pool-size: 10
-      pool-name: database-pool
-      auto-commit: false
-      connection-timeout: 30000
     url: "jdbc:postgresql://0.0.0.0:8080/parking_development_database"
     username: postgres
     password: 123
-    type: com.zaxxer.hikari.HikariDataSource
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
 server:
   port: 8081
