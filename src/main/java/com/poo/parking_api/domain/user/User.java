@@ -1,10 +1,7 @@
 package com.poo.parking_api.domain.user;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Table(name = "users")
 @Entity(name = "users")
@@ -12,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
