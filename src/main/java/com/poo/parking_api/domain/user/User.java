@@ -25,4 +25,14 @@ public class User {
         this.password = requestUser.password();
         this.role = requestUser.role();
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
 }

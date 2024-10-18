@@ -2,16 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Cadastrar-se</title>
 </head>
 <body>
 <form th:action="@{/register}" method="post" th:object="${user}">
-    <input name="email" type="text" placeholder="Email">
-    <input name="name" type="text" placeholder="Nome">
-    <input name="role" type="text" placeholder="Role">
-    <input name="password" type="password" placeholder="Password">
-    <input type="submit" th:value="Register">
+    <input name="email" type="text" placeholder="Email" required>
+    <input name="name" type="text" placeholder="Nome" required>
+    <input name="role" type="text" placeholder="Role" required>
+    <input name="password" type="password" placeholder="Password" required>
+    <input type="submit" value="Registrar">
 </form>
+<a th:href="@{/login}">Já tem uma conta? Faça login.</a>
 </body>
-<a href=""></a>
 </html>
