@@ -1,14 +1,35 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <form th:action="@{/login}" method="post">
-        <input name="username" type="text" placeholder="Username">
-        <input name="password" type="password" placeholder="Password">
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<div class="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
+    <h2 class="text-2xl font-semibold mb-6 text-gray-700">Login to our app</h2>
+    <p class="text-gray-500 mb-4">Enter username and password</p>
+    <form th:action="@{/login}" method="post" class="space-y-4">
+        <input
+                type="email"
+                placeholder="E-mail"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+        >
+        <input
+                type="password"
+                placeholder="Password"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+        >
+        <button
+                type="submit"
+                class="w-full bg-red-500 text-white p-3 rounded-lg hover:bg-red-600 transition duration-200">
+            Log in
+        </button>
     </form>
+    <p class="mt-4 text-sm text-center">
+        Don't have an account? <a href="#" class="text-red-500 hover:underline">Sign up here</a>
+    </p>
+</div>
 </body>
-<a href=""></a>
 </html>
