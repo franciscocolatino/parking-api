@@ -23,11 +23,10 @@ public class AuthController {
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute User user) {
-        System.out.println("########ff######");
-        System.out.println(user);
 
-        userService.save(user);
-        return "redirect:/hello?success";
+        //userService.register(user);
+        System.out.println("CHEGOU AQUI");
+        return "redirect:/hello";
     }
 
     @GetMapping("/login")
