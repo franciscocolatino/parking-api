@@ -32,13 +32,13 @@
                 required
                 class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
         >
-        <input
-                name="role"
-                type="text"
-                placeholder="Role"
-                required
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-        >
+        <select name="role" th:field="*{role}" required>
+            <option value="" disabled selected>Escolha um papel</option>
+            <option th:each="role : ${roles}"
+                    th:value="${role}"
+                    th:text="${role}"> <!-- Mostra o displayName -->
+            </option>
+        </select>
         <button
                 type="submit"
                 class="w-full bg-red-500 text-white p-3 rounded-lg hover:bg-red-600 transition duration-200">

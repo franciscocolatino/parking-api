@@ -1,5 +1,7 @@
 package com.poo.parking_api.controllers;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,8 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HelloController {
 
     @GetMapping("/hello")
-    public String hello(Model model) {
+    public String hello(Model model, @AuthenticationPrincipal UserDetails userDetails) {
         model.addAttribute("message", "Hello, Thymeleaf!");
+        model.addAttribute("email", userDetails.getUsername());
         return "hello";
     }
 }

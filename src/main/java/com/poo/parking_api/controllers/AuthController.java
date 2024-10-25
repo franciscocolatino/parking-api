@@ -1,6 +1,7 @@
 package com.poo.parking_api.controllers;
 
 import com.poo.parking_api.domain.user.User;
+import com.poo.parking_api.domain.user.UserRole;
 import com.poo.parking_api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,16 +19,15 @@ public class AuthController {
     @GetMapping("/register")
     public String showRegister(Model model) {
         model.addAttribute("user", new User());
+        model.addAttribute("roles", UserRole.values());
         return "register_page";
     }
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute User user) {
-        System.out.println("########ff######");
-        System.out.println(user);
-
-        userService.save(user);
-        return "redirect:/hello?success";
+        user.setRole(UserRole.USER);
+        userService.register(user);
+        return "redirect:/login?success=true";
     }
 
     @GetMapping("/login")
