@@ -3,6 +3,7 @@ package com.poo.parking_api.service;
 import com.poo.parking_api.domain.user.User;
 import com.poo.parking_api.domain.user.UserRepository;
 import com.poo.parking_api.domain.user.UserRole;
+import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,6 +26,5 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         repository.save(user);
     }
-
 
 }

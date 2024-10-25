@@ -1,8 +1,8 @@
 package com.poo.parking_api.service;
 
-import com.poo.parking_api.domain.user.User;
 import com.poo.parking_api.domain.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,6 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserDetails user = userRepository.findByEmail(email);
+        System.out.println(user);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
