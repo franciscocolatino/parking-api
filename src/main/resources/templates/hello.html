@@ -9,5 +9,8 @@
         Login realizado com sucesso!
     </div>
     <h1 th:text="${message}">Hello World</h1>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" th:value="Sair">
+    </form>
 </body>
 </html>

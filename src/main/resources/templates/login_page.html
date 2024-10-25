@@ -11,6 +11,9 @@
     <div th:if="${param.error}">
         Login ou senha incorretos
     </div>
+    <div th:if="${param.logout}">
+        Logout realizado com sucesso
+    </div>
     <form th:action="@{/login}" method="post">
         <label for="username">Username: </label>
         <input type="text" id="username" name="username" autofocus="autofocus"/>
