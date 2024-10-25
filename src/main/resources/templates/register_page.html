@@ -8,7 +8,17 @@
 <form th:action="@{/register}" method="post" th:object="${user}">
     <input name="email" type="text" placeholder="Email" required>
     <input name="name" type="text" placeholder="Nome" required>
-    <input name="role" type="text" placeholder="Role" required>
+
+    <select name="role" th:field="*{role}" required>
+        <option value="" disabled selected>Escolha um papel</option>
+        <option th:each="role : ${roles}"
+                th:value="${role}"
+                th:text="${role}"> <!-- Mostra o displayName -->
+        </option>
+    </select>
+
+
+
     <input name="password" type="password" placeholder="Password" required>
     <input type="submit" value="Registrar">
 </form>
