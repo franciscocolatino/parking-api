@@ -1,27 +1,53 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastrar-se</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<form th:action="@{/register}" method="post" th:object="${user}">
-    <input name="email" type="text" placeholder="Email" required>
-    <input name="name" type="text" placeholder="Nome" required>
-
-    <select name="role" th:field="*{role}" required>
-        <option value="" disabled selected>Escolha um papel</option>
-        <option th:each="role : ${roles}"
-                th:value="${role}"
-                th:text="${role}"> <!-- Mostra o displayName -->
-        </option>
-    </select>
-
-
-
-    <input name="password" type="password" placeholder="Password" required>
-    <input type="submit" value="Registrar">
-</form>
-<a th:href="@{/login}">Já tem uma conta? Faça login.</a>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<div class="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
+    <h2 class="text-2xl font-semibold mb-6 text-gray-700">Sign up for our app</h2>
+    <p class="text-gray-500 mb-4">Fill in the details to create an account</p>
+    <form th:action="@{/register}" method="post" th:object="${user}" class="space-y-4">
+        <input
+                name="email"
+                type="email"
+                placeholder="E-mail"
+                required
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+        >
+        <input
+                name="name"
+                type="text"
+                placeholder="Name"
+                required
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+        >
+        <input
+                name="password"
+                type="password"
+                placeholder="Password"
+                required
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+        >
+        <select name="role" th:field="*{role}" required>
+            <option value="" disabled selected>Escolha um papel</option>
+            <option th:each="role : ${roles}"
+                    th:value="${role}"
+                    th:text="${role}"> <!-- Mostra o displayName -->
+            </option>
+        </select>
+        <button
+                type="submit"
+                class="w-full bg-red-500 text-white p-3 rounded-lg hover:bg-red-600 transition duration-200">
+            Sign up
+        </button>
+    </form>
+    <p class="mt-4 text-sm text-center">
+        Already have an account? <a th:href="@{/login}" class="text-red-500 hover:underline">Log in here</a>
+    </p>
+</div>
 </body>
 </html>

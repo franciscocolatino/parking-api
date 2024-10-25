@@ -12,7 +12,8 @@ public class HelloController {
     @GetMapping("/hello")
     public String hello(Model model, @AuthenticationPrincipal UserDetails userDetails) {
         model.addAttribute("message", "Hello, Thymeleaf!");
-        model.addAttribute("email", userDetails.getUsername());
+        model.addAttribute("name", userDetails.getUsername());
+        model.addAttribute("roles", userDetails.getAuthorities());
         return "hello";
     }
 }
