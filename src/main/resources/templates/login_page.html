@@ -22,16 +22,19 @@
     <form th:action="@{/login}" method="post" class="space-y-4">
         <input
                 type="email"
+                name="username"
                 placeholder="E-mail"
                 class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
         >
         <input
                 type="password"
+                name="password"
                 placeholder="Password"
                 class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
         >
         <button
                 type="submit"
+                value="Log in"
                 class="w-full bg-red-500 text-white p-3 rounded-lg hover:bg-red-600 transition duration-200">
             Log in
         </button>
