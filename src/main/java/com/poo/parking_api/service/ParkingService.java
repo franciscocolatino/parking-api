@@ -2,7 +2,7 @@ package com.poo.parking_api.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.poo.parking_api.model.Parking;
+import com.poo.parking_api.domain.parking.Parking;
 import com.poo.parking_api.repository.ParkingRepository;
 
 import java.util.List;
