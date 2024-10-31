@@ -1,4 +1,4 @@
-package com.poo.parking_api.model;
+package com.poo.parking_api.domain.parking;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
