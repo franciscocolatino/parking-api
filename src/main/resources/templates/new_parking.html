@@ -10,13 +10,13 @@
 
 <form th:action="@{/parkings}" th:object="${parking}" method="post">
     <label for="nome">Name:</label>
-    <input type="text" id="nome" th:field="*{nome}" required>
+    <input type="text" id="nome" th:field="*{name}" required>
 
     <label for="localizacao">Location:</label>
-    <input type="text" id="localizacao" th:field="*{localizacao}" required>
+    <input type="text" id="localizacao" th:field="*{address}" required>
 
     <label for="capacidade">Capacity:</label>
-    <input type="number" id="capacidade" th:field="*{capacidade}" required>
+    <input type="number" id="capacidade" th:field="*{totalCapacity}" required>
 
     <button type="submit">Add Parking</button>
     <a href="/parkings">Cancel</a>
