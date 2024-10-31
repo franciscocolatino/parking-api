@@ -6,34 +6,39 @@
     <title>Sign Up Page</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-<div class="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-    <h2 class="text-2xl font-semibold mb-6 text-gray-700">Sign up for our app</h2>
-    <p class="text-gray-500 mb-4">Fill in the details to create an account</p>
-    <form th:action="@{/register}" method="post" th:object="${user}" class="space-y-4">
+<body class="bg-gradient-to-br from-gray-100 to-gray-300 flex items-center justify-center min-h-screen">
+<div class="w-full max-w-md bg-white p-10 rounded-2xl shadow-lg shadow-gray-300/50">
+    <h2 class="text-3xl font-bold mb-4 text-gray-700 text-center">Create Your Account</h2>
+    <p class="text-gray-500 mb-6 text-center">Fill in the details to join us</p>
+    <form th:action="@{/register}" method="post" th:object="${user}" class="space-y-5">
         <input
                 name="email"
                 type="email"
                 placeholder="E-mail"
                 required
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-150 ease-in-out"
         >
         <input
                 name="name"
                 type="text"
                 placeholder="Name"
                 required
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-150 ease-in-out"
         >
         <input
                 name="password"
                 type="password"
                 placeholder="Password"
                 required
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-150 ease-in-out"
         >
-        <select name="role" th:field="*{role}" required>
-            <option value="" disabled selected>Escolha um papel</option>
+        <select
+                name="role"
+                th:field="*{role}"
+                required
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 bg-white text-gray-500 transition duration-150 ease-in-out"
+        >
+            <option value="" disabled selected>Choose a role</option>
             <option th:each="role : ${roles}"
                     th:value="${role}"
                     th:text="${role}"> <!-- Mostra o displayName -->
@@ -41,11 +46,11 @@
         </select>
         <button
                 type="submit"
-                class="w-full bg-red-500 text-white p-3 rounded-lg hover:bg-red-600 transition duration-200">
-            Sign up
+                class="w-full bg-red-500 text-white p-3 rounded-lg hover:bg-red-600 hover:shadow-lg hover:shadow-red-300/50 transition-all duration-300 ease-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+            Sign Up
         </button>
     </form>
-    <p class="mt-4 text-sm text-center">
+    <p class="mt-6 text-sm text-center text-gray-600">
         Already have an account? <a th:href="@{/login}" class="text-red-500 hover:underline">Log in here</a>
     </p>
 </div>
