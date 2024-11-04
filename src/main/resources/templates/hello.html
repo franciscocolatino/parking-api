@@ -1,20 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Hello World</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div th:if="${param.sucess}">
+<body class="bg-gray-100 h-screen flex">
+<aside class="w-64 bg-gray-800 text-white h-full fixed">
+    <div class="p-4 text-xl font-bold border-b border-gray-700">
+        Parking Application
+    </div>
+    <nav class="mt-6">
+        <a href="#" class="block py-2.5 px-4 hover:bg-gray-700">Dashboard</a>
+        <a href="#" class="block py-2.5 px-4 hover:bg-gray-700">Profile</a>
+        <a href="#" class="block py-2.5 px-4 hover:bg-gray-700">Settings</a>
+        <a href="#" class="block py-2.5 px-4 hover:bg-gray-700">Help</a>
+    </nav>
+</aside>
+
+<div class="flex-1 ml-64 p-8">
+    <div th:if="${param.sucess}" class="mb-4 p-4 bg-green-100 text-green-700 rounded">
         Login realizado com sucesso!
     </div>
-    <h1 th:text="${message}">Hello World</h1>
-    <h1>Nome do usuário: <p th:text="${name}"></p></h1>
-    <h1>Roles: <p th:text="${roles}"></p></h1>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" th:value="Sair">
+
+    <h1 class="text-3xl font-bold mb-6" th:text="${message}">Hello World</h1>
+
+    <div class="bg-white p-6 rounded shadow">
+        <h2 class="text-xl font-semibold">Informações do Usuário</h2>
+        <p class="mt-2">Nome do usuário: <span th:text="${name}" class="font-medium text-gray-700"></span></p>
+        <p class="mt-2">Roles: <span th:text="${roles}" class="font-medium text-gray-700"></span></p>
+    </div>
+
+    <form th:action="@{/logout}" method="post" class="mt-6">
+        <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+            Sair
+        </button>
     </form>
-    <h1 sec:authorize="hasAuthority('ADMIN')"> SÓ MOSTRA SE FOR ADMIN</h1>
+
+    <h1 sec:authorize="hasAuthority('ADMIN')" class="mt-6 text-lg font-bold text-blue-500">
+        SÓ MOSTRA SE FOR ADMIN
+    </h1>
+</div>
 </body>
 </html>
