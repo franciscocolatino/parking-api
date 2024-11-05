@@ -16,6 +16,7 @@
         <a href="#" class="block py-2.5 px-4 hover:bg-gray-700">Profile</a>
         <a href="#" class="block py-2.5 px-4 hover:bg-gray-700">Settings</a>
         <a href="#" class="block py-2.5 px-4 hover:bg-gray-700">Help</a>
+        <a th:href="@{/users}" sec:authorize="hasAuthority('ADMIN')" class="block py-2.5 px-4 hover:bg-gray-700">Users</a>
     </nav>
 </aside>
 
