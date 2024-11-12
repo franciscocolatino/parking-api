@@ -1,42 +1,49 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Lista de Usuários</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<div th:if="${(param.error ?: '').toString().equals('userNotFound')}">
-    Usuário não encontrado!
+<body class="bg-gray-100 h-screen flex">
+<div th:include="sidebar :: sidebar"></div>
+
+<div class="flex-1 ml-64 p-8">
+    <!-- Exibe mensagem de erro caso o usuário não seja encontrado -->
+    <div th:if="${(param.error ?: '').toString().equals('userNotFound')}" class="mb-4 p-4 bg-red-100 text-red-700 rounded">
+        Usuário não encontrado!
+    </div>
+
+    <h1 class="text-3xl font-bold mb-6">Lista de Usuários</h1>
+
+    <div class="bg-white p-6 rounded shadow">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>Role</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Id</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.getRole()}">Role</td>
+                <td th:text="${user.name}">Nome do Usuário</td>
+                <td th:text="${user.email}">email@exemplo.com</td>
+                <td th:text="${user.id}">id</td>
+                <td>
+                    <a th:href="@{/users/{id}(id=${user.id})}" class="btn btn-primary mr-2">Editar</a>
+                    <button class="btn btn-danger" th:data-user-id="${user.id}" onclick="deleteUser(this.dataset.userId)">Deletar</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-<div class="container">
-    <h1>Lista de Usuários</h1>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Role</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Id</th>
-            <th>Ações</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user : ${users}">
-            <td th:text="${user.getRole()}">Role</td>
-            <td th:text="${user.name}">Nome do Usuário</td>
-            <td th:text="${user.email}">email@exemplo.com</td>
-            <td th:text="${user.id}">id</td>
-            <td>
-                <a th:href="@{/users/{id}(id=${user.id})}" class="btn btn-primary">Editar</a>
-                <button class="btn btn-danger" th:data-user-id="${user.id}" onclick="deleteUser(this.dataset.userId)">Deletar</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-</body>
-</html>
+
 <script>
     function deleteUser(userId) {
         if (confirm('Você tem certeza que deseja deletar este usuário?')) {
@@ -52,3 +59,5 @@
         }
     }
 </script>
+</body>
+</html>

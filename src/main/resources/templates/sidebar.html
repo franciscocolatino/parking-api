@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Sidebar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<div th:fragment="sidebar">
+    <aside class="w-64 bg-gray-800 text-white h-full fixed">
+        <div class="p-4 text-xl font-bold border-b border-gray-700">
+            Parking Application
+        </div>
+        <nav class="mt-6">
+            <a th:href="@{/hello}" class="block py-2.5 px-4 hover:bg-gray-700">Dashboard</a>
+            <a href="#" class="block py-2.5 px-4 hover:bg-gray-700">Profile</a>
+            <a href="#" class="block py-2.5 px-4 hover:bg-gray-700">Settings</a>
+            <a href="#" class="block py-2.5 px-4 hover:bg-gray-700">Help</a>
+            <a th:href="@{/users}" sec:authorize="hasAuthority('ADMIN')" class="block py-2.5 px-4 hover:bg-gray-700">Users</a>
+        </nav>
+    </aside>
+</div>
+</body>
+</html>
