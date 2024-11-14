@@ -3,6 +3,8 @@ package com.poo.parking_api.controllers;
 import com.poo.parking_api.domain.user.RequestUser;
 import com.poo.parking_api.domain.user.User;
 import com.poo.parking_api.domain.user.UserRepository;
+import com.poo.parking_api.domain.user.UserRole;
+import com.poo.parking_api.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.apache.coyote.Request;
@@ -21,6 +23,8 @@ public class UserController {
 
     @Autowired
     private UserRepository repository;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/users")
     public String index(Model model) {
@@ -34,6 +38,7 @@ public class UserController {
         Optional<User> user = repository.findById(id);
         if (user.isPresent()) {
             model.addAttribute("user", user.get());
+            model.addAttribute("roles", UserRole.values());
         } else {
             return "redirect:/users?error=userNotFound";
         }
@@ -54,24 +59,26 @@ public class UserController {
 
     }
 
-    @PostMapping
-    public ResponseEntity create(@RequestBody RequestUser data) {
-        User user = new User(data);
-        repository.save(user);
-        return ResponseEntity.ok(user);
+    @GetMapping("/users/new")
+    public String showRegister(Model model) {
+        model.addAttribute("user", new User());
+        model.addAttribute("roles", UserRole.values());
+        return "users/new";
     }
 
-    @PutMapping
+    @PostMapping("/users")
+    public String create(@ModelAttribute User user) {
+        userService.register(user);
+        return "redirect:/users?newUserCreated=true";
+    }
+
+    @PostMapping("/users/update/{id}")
     @Transactional
-    public ResponseEntity<User> update(@RequestBody RequestUser data) {
-        Optional<User> optionalUser = repository.findById(data.id());
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            user.setName(data.name());
-            return ResponseEntity.ok(user);
-        } else {
-            return ResponseEntity.notFound().build();
+    public String update(@PathVariable String id, @ModelAttribute User user) {
+        if (userService.update(id, user)) {
+            return "redirect:/users/" + id + "?newUserUpdated=true";
         }
+        return "redirect:/users?error=userNotFound";
     }
 
 
