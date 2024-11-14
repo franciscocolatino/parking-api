@@ -1,24 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Hello World</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 h-screen flex">
-<aside class="w-64 bg-gray-800 text-white h-full fixed">
-    <div class="p-4 text-xl font-bold border-b border-gray-700">
-        Parking Application
-    </div>
-    <nav class="mt-6">
-        <a href="#" class="block py-2.5 px-4 hover:bg-gray-700">Dashboard</a>
-        <a href="#" class="block py-2.5 px-4 hover:bg-gray-700">Profile</a>
-        <a href="#" class="block py-2.5 px-4 hover:bg-gray-700">Settings</a>
-        <a href="#" class="block py-2.5 px-4 hover:bg-gray-700">Help</a>
-        <a th:href="@{/users}" sec:authorize="hasAuthority('ADMIN')" class="block py-2.5 px-4 hover:bg-gray-700">Users</a>
-    </nav>
-</aside>
+<div th:include="sidebar :: sidebar"></div>
 
 <div class="flex-1 ml-64 p-8">
     <div th:if="${param.sucess}" class="mb-4 p-4 bg-green-100 text-green-700 rounded">
