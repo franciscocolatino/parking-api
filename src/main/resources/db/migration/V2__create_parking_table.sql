@@ -1,4 +1,4 @@
-CREATE TABLE parking (
+CREATE TABLE parkings (
      id BIGSERIAL PRIMARY KEY,
      name VARCHAR(255) NOT NULL,
      address VARCHAR(255) NOT NULL,

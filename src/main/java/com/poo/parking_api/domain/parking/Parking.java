@@ -1,16 +1,11 @@
 package com.poo.parking_api.domain.parking;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import com.poo.parking_api.domain.ticket.Ticket;
 
 import java.util.List;
 
-@Entity
 public class Parking {
 
     @Id
