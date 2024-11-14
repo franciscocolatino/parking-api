@@ -10,48 +10,45 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/parking")
 public class ParkingController {
-
     @Autowired
     private ParkingService parkingService;
 
-    @GetMapping("/list")
+    @GetMapping("/parking/list")
     public String listParkings(Model model) {
         List<Parking> parkings = parkingService.findAll();
         model.addAttribute("parkings", parkings);
         return "parking_list";
     }
 
-    @GetMapping("/new")
+    @GetMapping("/parking/new")
     public String createParkingForm(Model model) {
         model.addAttribute("parking", new Parking());
         return "new_parking";
     }
 
-    @PostMapping("/save")
+    @PostMapping("/parkings")
     public String saveParking(@ModelAttribute Parking parking) {
         parkingService.save(parking);
         return "redirect:/parking/list";
     }
 
-    @GetMapping("/edit/{id}")
-    public String editParkingForm(@PathVariable Long id, Model model) {
-        Parking parking = parkingService.getParkingById(id);
-        model.addAttribute("parking", parking);
-        return "edit_parking";
-    }
-
-    @PostMapping("/update/{id}")
+    @PostMapping("/parking/update/{id}")
     public String updateParking(@PathVariable Long id, @ModelAttribute Parking parking) {
         parking.setId(id);
         parkingService.update(parking);
         return "redirect:/parking/list";
     }
-
     @GetMapping("/delete/{id}")
     public String deleteParking(@PathVariable Long id) {
         parkingService.deleteParking(id);
         return "redirect:/parking/list";
+    }
+
+    @GetMapping("/parking/edit/{id}")
+    public String editParkingForm(@PathVariable Long id, Model model) {
+        Parking parking = parkingService.getParkingById(id);
+        model.addAttribute("parking", parking);
+        return "edit_parking";
     }
 }
