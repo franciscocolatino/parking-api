@@ -27,19 +27,13 @@ public class ParkingController {
         return "new_parking";
     }
 
-    @PostMapping("/parkings")
-    public String saveParking(@ModelAttribute Parking parking) {
-        parkingService.save(parking);
-        return "redirect:/parking/list";
-    }
-
     @PostMapping("/parking/update/{id}")
     public String updateParking(@PathVariable Long id, @ModelAttribute Parking parking) {
         parking.setId(id);
         parkingService.update(parking);
         return "redirect:/parking/list";
     }
-    @GetMapping("/delete/{id}")
+    @GetMapping("/parking/delete/{id}")
     public String deleteParking(@PathVariable Long id) {
         parkingService.deleteParking(id);
         return "redirect:/parking/list";
