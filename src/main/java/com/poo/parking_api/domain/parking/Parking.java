@@ -4,17 +4,33 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import com.poo.parking_api.domain.ticket.Ticket;
+
+import java.util.List;
 
 @Entity
 public class Parking {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String address;
     private int totalCapacity;
-    private int vacanciesAvailable;
 
+    @OneToMany(mappedBy = "vacancy.parking")
+    private List<Ticket> tickets;
+
+    public int getVacanciesAvailable() {
+        long ticketsNotDone = tickets.stream()
+                .filter(ticket -> !"done".equals(ticket.getStatus()))
+                .count();
+        return totalCapacity - (int) ticketsNotDone;
+    }
+
+    // Getters e Setters
     public Long getId() {
         return id;
     }
@@ -47,11 +63,11 @@ public class Parking {
         this.totalCapacity = totalCapacity;
     }
 
-    public int getVacanciesAvailable() {
-        return vacanciesAvailable;
+    public List<Ticket> getTickets() {
+        return tickets;
     }
 
-    public void setVacanciesAvailable(int vacanciesAvailable) {
-        this.vacanciesAvailable = vacanciesAvailable;
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
     }
 }
