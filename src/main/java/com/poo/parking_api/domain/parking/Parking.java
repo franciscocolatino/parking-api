@@ -35,10 +35,10 @@
         private int truckCapacity;
 
 
-        @OneToMany(mappedBy = "vacancies.parking")
+        @OneToMany(mappedBy = "parking")  // O "parking" refere-se ao nome do atributo na classe Vacancy
         private List<Vacancy> vacancies;
 
-    //public int getVacanciesAvailable() {
+    //  public int getVacanciesAvailable() {
     //    long ticketsNotDone = tickets.stream()
     //            .filter(ticket -> !"done".equals(ticket.getStatus()))
     //            .count();

@@ -49,6 +49,7 @@ public class ParkingController {
     public String editParkingForm(@PathVariable String id, Model model) {
         Parking parking = parkingService.getParkingById(id);
         model.addAttribute("parking", parking);
+        model.addAttribute("vacancies", parking.getVacancies());
         return "parking/edit";
     }
 }

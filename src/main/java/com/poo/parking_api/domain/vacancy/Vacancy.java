@@ -19,7 +19,7 @@ public class Vacancy {
     private VacancyType vacancyType;
     private PriorityType priorityType;
 
-    @ManyToOne  // Relacionamento "muitas vagas para um estacionamento"
-    @JoinColumn(name = "parking_id", nullable = false)  // Definindo a chave estrangeira
-    private Parking parking;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parking_id")  // Nome da coluna que faz a referência para Parking
+    private Parking parking;  // Referência ao estacionamento
 }
