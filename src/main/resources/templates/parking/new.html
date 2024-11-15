@@ -13,7 +13,7 @@
     <h1 class="text-3xl font-bold mb-6">Adicionar Novo Estacionamento</h1>
 
     <div class="bg-white p-6 rounded shadow">
-        <form th:action="@{/parkings}" th:object="${parking}" method="post" class="space-y-4">
+        <form th:action="@{/parking}" th:object="${parking}" method="post" class="space-y-4">
             <div class="form-group">
                 <label for="nome" class="form-label">Nome:</label>
                 <input type="text" id="nome" th:field="*{name}" required class="form-control" placeholder="Nome do Estacionamento">

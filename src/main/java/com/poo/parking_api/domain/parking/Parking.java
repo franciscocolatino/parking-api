@@ -3,11 +3,14 @@ package com.poo.parking_api.domain.parking;
 import jakarta.persistence.*;
 
 import com.poo.parking_api.domain.ticket.Ticket;
+import lombok.Getter;
 
 import java.util.List;
 
 @Table(name = "parkings")
 @Entity(name = "parking")
+@Getter
+@EntityListeners(ParkingEntityListener.class)
 public class Parking {
 
     @Id
@@ -16,6 +19,7 @@ public class Parking {
     private String name;
     private String address;
     private int totalCapacity;
+    private int vacanciesAvailable;
 
     //@OneToMany(mappedBy = "vacancies.parking")
     //private List<Ticket> tickets;
@@ -36,28 +40,20 @@ public class Parking {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
     }
 
-    public int getTotalCapacity() {
-        return totalCapacity;
-    }
-
     public void setTotalCapacity(int totalCapacity) {
         this.totalCapacity = totalCapacity;
+    }
+
+    public void setVacanciesAvailable(int vacanciesAvailable) {
+        this.vacanciesAvailable = vacanciesAvailable;
     }
 
     //public List<Ticket> getTickets() {

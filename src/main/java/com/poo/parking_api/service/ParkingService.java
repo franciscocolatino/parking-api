@@ -13,7 +13,8 @@ public class ParkingService {
     @Autowired
     private ParkingRepository parkingRepository;
 
-    public Parking save(Parking parking) {
+    public Parking create(Parking parking) {
+
         return parkingRepository.save(parking);
     }
 

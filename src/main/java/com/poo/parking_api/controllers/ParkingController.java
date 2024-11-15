@@ -14,6 +14,12 @@ public class ParkingController {
     @Autowired
     private ParkingService parkingService;
 
+    @PostMapping("/parking")
+    public String create(@ModelAttribute Parking parking) {
+        parkingService.create(parking);
+        return "redirect:/parking/list";
+    }
+
     @GetMapping("/parking/list")
     public String listParkings(Model model) {
         List<Parking> parkings = parkingService.findAll();
