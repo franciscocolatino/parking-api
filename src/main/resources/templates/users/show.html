@@ -12,8 +12,11 @@
 <div class="flex-1 ml-64 p-8">
     <h1 class="text-3xl font-bold mb-6">Editar Usuário</h1>
 
+    <div th:if="${param.newUserUpdated}" class="mb-4 p-4 bg-green-100 text-700 rounded">
+        Usuário editado com sucesso!
+    </div>
     <div class="bg-white p-6 rounded shadow">
-        <form action="#" th:action="@{/users/{id}(id=${user.id})}" method="post" th:object="${user}">
+        <form action="#" th:action="@{/users/update/{id}(id=${user.id})}" method="post" th:object="${user}">
             <div class="form-group mb-4">
                 <label for="name" class="font-semibold">Nome:</label>
                 <input type="text" class="form-control" id="name" th:field="*{name}" required>
@@ -22,6 +25,19 @@
                 <label for="email" class="font-semibold">Email:</label>
                 <input type="email" class="form-control" id="email" th:field="*{email}" required>
             </div>
+            <select
+                    name="role"
+                    th:field="*{role}"
+                    required
+                    class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 bg-white text-gray-500 transition duration-150 ease-in-out"
+            >
+                <option value="" disabled selected>Choose a role</option>
+                <option th:each="role : ${roles}"
+                        th:value="${role}"
+                        th:text="${role}"
+                        th:checked="${user.role}"> <!-- Mostra o displayName -->
+                </option>
+            </select>
             <!-- Adicione mais campos conforme necessário -->
             <button type="submit" class="btn btn-primary mr-2">Salvar</button>
             <a href="/users" class="btn btn-secondary">Voltar</a>

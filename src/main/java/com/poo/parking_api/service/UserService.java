@@ -26,4 +26,18 @@ public class UserService {
         repository.save(user);
     }
 
+    public Boolean update(String id, User user) {
+        Optional<User> userOptional = repository.findById(id);
+        if (userOptional.isPresent()) {
+            User existingUser = userOptional.get();
+            existingUser.setName(user.getName());
+            existingUser.setEmail(user.getEmail());
+            existingUser.setRole(user.getRole());
+            // Salva o usuário atualizado no banco de dados
+            repository.save(existingUser);
+            return true;
+        }
+        return false;
+    }
+
 }
