@@ -1,28 +1,42 @@
-package com.poo.parking_api.domain.parking;
+    package com.poo.parking_api.domain.parking;
 
-import jakarta.persistence.*;
+    import com.poo.parking_api.domain.vacancy.Vacancy;
+    import jakarta.persistence.*;
 
-import com.poo.parking_api.domain.ticket.Ticket;
-import lombok.Getter;
+    import com.poo.parking_api.domain.ticket.Ticket;
+    import lombok.Getter;
+    import lombok.Setter;
 
-import java.util.List;
+    import java.util.List;
 
-@Table(name = "parkings")
-@Entity(name = "parking")
-@Getter
-@EntityListeners(ParkingEntityListener.class)
-public class Parking {
+    @Table(name = "parkings")
+    @Entity(name = "parking")
+    @Getter
+    @EntityListeners(ParkingEntityListener.class)
+    @Setter
+    public class Parking {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
-    private String name;
-    private String address;
-    private int totalCapacity;
-    private int vacanciesAvailable;
+        @Id
+        @GeneratedValue(strategy = GenerationType.UUID)
+        private String id;
+        private String name;
+        private String address;
+        private int totalCapacity;
+        private int vacanciesAvailable;
+        public static final double PRIORITY_PERCENTAGE = 0.2;
 
-    //@OneToMany(mappedBy = "vacancies.parking")
-    //private List<Ticket> tickets;
+        @Transient
+        private int carCapacity;
+        @Transient
+        private int motocycleCapacity;
+        @Transient
+        private int bicycleCapacity;
+        @Transient
+        private int truckCapacity;
+
+
+        @OneToMany(mappedBy = "vacancies.parking")
+        private List<Vacancy> vacancies;
 
     //public int getVacanciesAvailable() {
     //    long ticketsNotDone = tickets.stream()

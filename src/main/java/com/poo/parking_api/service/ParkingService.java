@@ -12,10 +12,13 @@ public class ParkingService {
 
     @Autowired
     private ParkingRepository parkingRepository;
+    @Autowired
+    private VacancyService vacancyService;
 
     public Parking create(Parking parking) {
-
-        return parkingRepository.save(parking);
+        parkingRepository.save(parking);
+        vacancyService.createVacancies(parking);
+        return parking;
     }
 
     public Parking update(Parking parking) {

@@ -25,8 +25,23 @@
             </div>
 
             <div class="form-group">
-                <label for="capacidade" class="form-label">Capacidade Total:</label>
-                <input type="number" id="capacidade" th:field="*{totalCapacity}" required class="form-control" placeholder="Capacidade Total">
+                <label for="carros" class="form-label">Capacidade para Carros:</label>
+                <input type="number" id="carros" th:field="*{carCapacity}" required class="form-control" placeholder="Capacidade para Carros">
+            </div>
+
+            <div class="form-group">
+                <label for="motos" class="form-label">Capacidade para Motos:</label>
+                <input type="number" id="motos" th:field="*{motocycleCapacity}" required class="form-control" placeholder="Capacidade para Motos">
+            </div>
+
+            <div class="form-group">
+                <label for="bicicletas" class="form-label">Capacidade para Bicicletas:</label>
+                <input type="number" id="bicicletas" th:field="*{bicycleCapacity}" required class="form-control" placeholder="Capacidade para Bicicletas">
+            </div>
+
+            <div class="form-group">
+                <label for="caminhoes" class="form-label">Capacidade para Caminhões:</label>
+                <input type="number" id="caminhoes" th:field="*{truckCapacity}" required class="form-control" placeholder="Capacidade para Caminhões">
             </div>
 
             <div class="flex justify-between mt-6">
