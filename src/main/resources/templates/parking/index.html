@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Parking List</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 h-screen flex">
+<div th:include="sidebar :: sidebar"></div>
+
+<div class="flex-1 ml-64 p-8">
+  <div th:if="${param.newParkingCreated}" class="mb-4 p-4 bg-green-100 text-green-700 rounded">
+    Novo estacionamento criado com sucesso!
+  </div>
+
+  <h1 class="text-3xl font-bold mb-6">Lista de Estacionamentos</h1>
+  <div class="flex justify-between items-center mb-6">
+    <a href="/parking/new" class="btn btn-success">Adicionar Novo Estacionamento</a>
+  </div>
+
+  <div class="bg-white p-6 rounded shadow">
+    <table class="table table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Nome</th>
+        <th>Localização</th>
+        <th>Capacidade Total</th>
+        <th>Vagas Disponíveis</th>
+        <th>Ações</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="parking : ${parkings}">
+        <td th:text="${parking.name}">Nome do Estacionamento</td>
+        <td th:text="${parking.address}">Localização</td>
+        <td th:text="${parking.totalCapacity}">Capacidade Total</td>
+        <td th:text="${parking.vacanciesAvailable}">Vagas Disponíveis</td>
+        <td>
+          <a th:href="@{/parking/edit/{id}(id=${parking.id})}" class="btn btn-primary mr-2">Editar</a>
+          <a th:href="@{/parking/delete/{id}(id=${parking.id})}" class="btn btn-danger" onclick="return confirm('Você tem certeza que deseja deletar este estacionamento?')">Deletar</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>
