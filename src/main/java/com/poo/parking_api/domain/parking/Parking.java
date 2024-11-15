@@ -35,7 +35,7 @@
         private int truckCapacity;
 
 
-        @OneToMany(mappedBy = "parking")  // O "parking" refere-se ao nome do atributo na classe Vacancy
+        @OneToMany(mappedBy = "parking", cascade = CascadeType.REMOVE)  // O "parking" refere-se ao nome do atributo na classe Vacancy
         private List<Vacancy> vacancies;
 
     //  public int getVacanciesAvailable() {
