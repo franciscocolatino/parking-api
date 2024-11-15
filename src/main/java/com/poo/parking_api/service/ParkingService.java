@@ -28,11 +28,11 @@ public class ParkingService {
         return parkingRepository.findAll();
     }
 
-    public Parking getParkingById(Long id) {
+    public Parking getParkingById(String id) {
         return parkingRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Parking not found"));
     }
 
-    public void deleteParking(Long id) {
+    public void deleteParking(String id) {
         parkingRepository.deleteById(id);
     }
 }

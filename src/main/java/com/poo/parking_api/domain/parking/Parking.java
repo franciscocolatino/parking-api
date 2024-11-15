@@ -6,31 +6,33 @@ import com.poo.parking_api.domain.ticket.Ticket;
 
 import java.util.List;
 
+@Table(name = "parkings")
+@Entity(name = "parking")
 public class Parking {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     private String name;
     private String address;
     private int totalCapacity;
 
-    @OneToMany(mappedBy = "vacancy.parking")
-    private List<Ticket> tickets;
+    //@OneToMany(mappedBy = "vacancies.parking")
+    //private List<Ticket> tickets;
 
-    public int getVacanciesAvailable() {
-        long ticketsNotDone = tickets.stream()
-                .filter(ticket -> !"done".equals(ticket.getStatus()))
-                .count();
-        return totalCapacity - (int) ticketsNotDone;
-    }
+    //public int getVacanciesAvailable() {
+    //    long ticketsNotDone = tickets.stream()
+    //            .filter(ticket -> !"done".equals(ticket.getStatus()))
+    //            .count();
+    //    return totalCapacity - (int) ticketsNotDone;
+    //}
 
     // Getters e Setters
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -58,11 +60,11 @@ public class Parking {
         this.totalCapacity = totalCapacity;
     }
 
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
+    //public List<Ticket> getTickets() {
+    //    return tickets;
+    //}
 
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
-    }
+    //public void setTickets(List<Ticket> tickets) {
+    //    this.tickets = tickets;
+    //}
 }

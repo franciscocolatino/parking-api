@@ -28,19 +28,19 @@ public class ParkingController {
     }
 
     @PostMapping("/parking/update/{id}")
-    public String updateParking(@PathVariable Long id, @ModelAttribute Parking parking) {
+    public String updateParking(@PathVariable String id, @ModelAttribute Parking parking) {
         parking.setId(id);
         parkingService.update(parking);
         return "redirect:/parking/list";
     }
     @GetMapping("/parking/delete/{id}")
-    public String deleteParking(@PathVariable Long id) {
+    public String deleteParking(@PathVariable String id) {
         parkingService.deleteParking(id);
         return "redirect:/parking/list";
     }
 
     @GetMapping("/parking/edit/{id}")
-    public String editParkingForm(@PathVariable Long id, Model model) {
+    public String editParkingForm(@PathVariable String id, Model model) {
         Parking parking = parkingService.getParkingById(id);
         model.addAttribute("parking", parking);
         return "edit_parking";

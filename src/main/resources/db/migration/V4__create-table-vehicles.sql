@@ -1,0 +1,6 @@
+CREATE TABLE vehicles (
+    id TEXT PRIMARY KEY UNIQUE NOT NULL,
+    plate VARCHAR(8) NOT NULL,
+    model VARCHAR(100) NOT NULL,
+    type INT NOT NULL
+);
