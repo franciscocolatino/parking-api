@@ -18,27 +18,30 @@
     <div class="bg-white p-6 rounded shadow">
         <form action="#" th:action="@{/users/update/{id}(id=${user.id})}" method="post" th:object="${user}">
             <div class="form-group mb-4">
-                <label for="name" class="font-semibold">Nome:</label>
+                <label for="name">Nome:</label>
                 <input type="text" class="form-control" id="name" th:field="*{name}" required>
             </div>
             <div class="form-group mb-4">
-                <label for="email" class="font-semibold">Email:</label>
+                <label for="email">Email:</label>
                 <input type="email" class="form-control" id="email" th:field="*{email}" required>
             </div>
-            <select
-                    name="role"
-                    th:field="*{role}"
-                    required
-                    class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 bg-white text-gray-500 transition duration-150 ease-in-out"
-            >
-                <option value="" disabled selected>Choose a role</option>
-                <option th:each="role : ${roles}"
-                        th:value="${role}"
-                        th:text="${role}"
-                        th:checked="${user.role}"> <!-- Mostra o displayName -->
-                </option>
-            </select>
-            <!-- Adicione mais campos conforme necessário -->
+            <div class="form-group mb-4">
+                <label for="role" class="form-label">Cargo:</label>
+                <select
+                        name="role"
+                        id="role"
+                        th:field="*{role}"
+                        required
+                        class="form-control"
+                >
+                    <option value="" disabled selected>Escolha um Cargo</option>
+                    <option th:each="role : ${roles}"
+                            th:value="${role}"
+                            th:text="${role}"
+                            th:checked="${user.role}">
+                    </option>
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary mr-2">Salvar</button>
             <a href="/users" class="btn btn-secondary">Voltar</a>
         </form>

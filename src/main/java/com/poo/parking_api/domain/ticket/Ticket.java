@@ -1,55 +1,78 @@
 package com.poo.parking_api.domain.ticket;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+
+import com.poo.parking_api.domain.parking.Parking;
+import com.poo.parking_api.domain.user.User;
+import com.poo.parking_api.domain.vacancy.Vacancy;
+import com.poo.parking_api.domain.vehicle.Vehicle;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
-@Entity
+@Table(name = "tickets")
+@Entity(name = "ticket")
+@Getter
+@Setter
 public class Ticket {
-    @Id
-    private Long id;  // Alterado para Long
-    private String plateCar;
-    private int vacancyId;
-    private int employeeId;
-    private float paymentTotal;
-    private String status; // Status do ticket: "OPEN", "CLOSED"
-    private Date dateStart;
-    private Date dateEnd;
 
-    public Ticket(Long id, String plateCar, int vacancyId, int employeeId) {
-        this.id = id;
-        this.plateCar = plateCar;
-        this.vacancyId = vacancyId;
-        this.employeeId = employeeId;
-        this.paymentTotal = 0.0f;
-        this.status = "OPEN";
-        this.dateStart = new Date();
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+    //private String plateCar;
+    private TicketStatus status;
+    private float paymentTotal;
+    private LocalDateTime dateStart;
+    private LocalDateTime dateEnd;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vacancy_id")
+    private Vacancy vacancy;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vehicle_id")
+    private Vehicle vehicle;
+
+
+    @Transient
+    private Parking parking;
+
+
+    // Getters e Setters
+    public String getId() {
+        return id;
     }
 
-    public Ticket() {
+    public void setId(String id) {
+        this.id = id;
+    }
 
+    public float getPaymentTotal() {
+        return paymentTotal;
     }
 
     public void setPaymentTotal(float paymentTotal) {
         this.paymentTotal = paymentTotal;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setDateEnd(Date dateEnd) {
-        this.dateEnd = dateEnd;
-    }
-
-    public void setId(Long id) {  // Alterado para Long
-        this.id = id;
-    }
-
-    public Long getId() {  // Alterado para Long
-        return id;
-    }
-
-    public float getPaymentTotal() {
-        return paymentTotal;
-    }
+//    public Vacancy getVacancy() {
+//        return vacancy;
+//    }
+//
+//    public void setVacancy(Vacancy vacancy) {
+//        this.vacancy = vacancy;
+//    }
+//
+//    public Employee getEmployee() {
+//        return employee;
+//    }
+//
+//    public void setEmployee(Employee employee) {
+//        this.employee = employee;
+//    }
 }

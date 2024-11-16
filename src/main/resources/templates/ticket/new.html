@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Novo Ticket</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 h-screen flex">
+<div th:include="sidebar :: sidebar"></div>
+
+<div class="flex-1 ml-64 p-8">
+    <h1 class="text-3xl font-bold mb-6">Criar Novo Ticket</h1>
+
+    <div class="bg-white p-6 rounded shadow">
+        <form th:action="@{/ticket}" th:object="${ticket}" method="post" class="space-y-4">
+
+            <div class="form-group">
+                <label for="status" class="font-bold">Status</label>
+                <select id="status" name="status" th:field="*{status}" class="form-control" required>
+                    <option th:each="status : ${statuses}" th:value="${status}" th:text="${status}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="dateStart" class="font-bold">Data Início</label>
+                <input type="datetime-local" id="dateStart" name="dateStart" th:field="*{dateStart}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="dateEnd" class="font-bold">Data Fim</label>
+                <input type="datetime-local" id="dateEnd" name="dateEnd" th:field="*{dateEnd}" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="parking" class="font-bold">Estacionamento</label>
+                <select id="parking" name="parking" th:field="*{parking}" class="form-control" required>
+                    <option th:each="parking : ${parkings}" th:value="${parking.id}" th:text="${parking.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="vehicle" class="font-bold">Veiculo</label>
+                <select id="vehicle" name="vehicle" th:field="*{vehicle}" class="form-control" required>
+                    <option th:each="vehicle : ${vehicles}" th:value="${vehicle.id}" th:text="${vehicle.model}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="user" class="font-bold">Usuário</label>
+                <select id="user" name="user" th:field="*{user}" class="form-control" required>
+                    <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}"></option>
+                </select>
+            </div>
+
+            <div class="flex justify-end">
+                <button type="submit" class="btn btn-success">Salvar</button>
+                <a href="/ticket/list" class="btn btn-secondary ml-2">Cancelar</a>
+            </div>
+        </form>
+    </div>
+
+
+</div>
+</body>
+</html>

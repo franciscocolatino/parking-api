@@ -14,17 +14,23 @@ public class ParkingController {
     @Autowired
     private ParkingService parkingService;
 
+    @PostMapping("/parking")
+    public String create(@ModelAttribute Parking parking) {
+        parkingService.create(parking);
+        return "redirect:/parking/list";
+    }
+
     @GetMapping("/parking/list")
     public String listParkings(Model model) {
         List<Parking> parkings = parkingService.findAll();
         model.addAttribute("parkings", parkings);
-        return "parking_list";
+        return "parking/index";
     }
 
     @GetMapping("/parking/new")
     public String createParkingForm(Model model) {
         model.addAttribute("parking", new Parking());
-        return "new_parking";
+        return "parking/new";
     }
 
     @PostMapping("/parking/update/{id}")
@@ -43,6 +49,7 @@ public class ParkingController {
     public String editParkingForm(@PathVariable String id, Model model) {
         Parking parking = parkingService.getParkingById(id);
         model.addAttribute("parking", parking);
-        return "edit_parking";
+        model.addAttribute("vacancies", parking.getVacancies());
+        return "parking/edit";
     }
 }
