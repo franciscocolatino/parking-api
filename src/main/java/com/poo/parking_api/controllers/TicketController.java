@@ -20,7 +20,7 @@ public class TicketController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/ticket")
+    @GetMapping("/tickets")
     public String tickets(Model model) {
         model.addAttribute("tickets", ticketService.getAllTickets());
         return "ticket/index";
