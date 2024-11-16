@@ -40,7 +40,7 @@
                 <td th:text="${ticket.status}">Status</td>
                 <td th:text="${#temporals.format(ticket.dateStart, 'dd/MM/yyyy HH:mm')}">Data Início</td>
                 <td th:text="${#temporals.format(ticket.dateEnd, 'dd/MM/yyyy HH:mm')}">Data Fim</td>
-                <td th:text="${ticket.vacancy}">Vaga</td>
+                <td th:text="${ticket.vacancy.code}">Vaga</td>
                 <td th:text="${ticket.user.name}">Usuário</td>
                 <td>
                     <a th:href="@{/templates/ticket/edit/{id}(id=${ticket.id})}" class="btn btn-primary mr-2">Editar</a>

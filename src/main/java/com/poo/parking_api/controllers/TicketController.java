@@ -44,7 +44,7 @@ public class TicketController {
     @PostMapping("/ticket")
     public String createTicket(@ModelAttribute Ticket ticket) {
         String message = ticketService.createTicket(ticket);
-        return "tickets?" + message;
+        return "/tickets?" + message;
     }
 
     @GetMapping("/{id}")
