@@ -19,10 +19,10 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     //private String plateCar;
+    private TicketStatus status;
     private float paymentTotal;
     private LocalDateTime dateStart;
     private LocalDateTime dateEnd;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vacancy_id")
@@ -32,9 +32,13 @@ public class Ticket {
     @JoinColumn(name = "user_id")
     private User user;
 
-    // Construtor padrão
-    public Ticket() {
-    }
+    /*@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vehicle_id")*/
+
+
+    @Transient
+    private String parking;
+
 
     // Getters e Setters
     public String getId() {
