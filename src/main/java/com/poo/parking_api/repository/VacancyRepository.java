@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface VacancyRepository extends JpaRepository<Vacancy, String> {
-    @Query(value = "SELECT v FROM Vacancy v WHERE v.parking.id = :parkingId", nativeQuery = true)
-    List<Vacancy> BuscarTestePorParking(@Param("parkingId") String parkingId);
+    @Query("SELECT v FROM vacancy v WHERE v.parking = :parking") // TEM QUE COLOCAR + VERIFICAÇÕES AQUI
+    List<Vacancy> buscarPorParking(@Param("parking") Parking parking);
+
 
 }

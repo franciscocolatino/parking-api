@@ -18,7 +18,7 @@ public class TicketService {
     private VacancyRepository vacancyRepository;
 
     public String createTicket(Ticket ticket) {
-
+        System.out.println(vacancyRepository.buscarPorParking(ticket.getParking()));
         //boolean existsTicket =  ticketRepository.existsConflictingTicket(ticket.getVacancy().getId(), ticket.getDateStart(), ticket.getDateEnd());
         return "";
     }

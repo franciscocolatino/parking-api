@@ -1,7 +1,9 @@
 package com.poo.parking_api.domain.ticket;
 
+import com.poo.parking_api.domain.parking.Parking;
 import com.poo.parking_api.domain.user.User;
 import com.poo.parking_api.domain.vacancy.Vacancy;
+import com.poo.parking_api.domain.vehicle.Vehicle;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,12 +34,13 @@ public class Ticket {
     @JoinColumn(name = "user_id")
     private User user;
 
-    /*@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vehicle_id")*/
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vehicle_id")
+    private Vehicle vehicle;
 
 
     @Transient
-    private String parking;
+    private Parking parking;
 
 
     // Getters e Setters

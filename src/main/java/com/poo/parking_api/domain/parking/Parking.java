@@ -12,8 +12,8 @@
     @Table(name = "parkings")
     @Entity(name = "parking")
     @Getter
-    @EntityListeners(ParkingEntityListener.class)
     @Setter
+    @EntityListeners(ParkingEntityListener.class)
     public class Parking {
 
         @Id
@@ -46,9 +46,6 @@
     //}
 
     // Getters e Setters
-    public String getId() {
-        return id;
-    }
 
     public void setId(String id) {
         this.id = id;

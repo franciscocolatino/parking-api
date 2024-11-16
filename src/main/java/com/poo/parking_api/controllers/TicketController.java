@@ -5,6 +5,7 @@ import com.poo.parking_api.domain.ticket.TicketStatus;
 import com.poo.parking_api.service.ParkingService;
 import com.poo.parking_api.service.TicketService;
 import com.poo.parking_api.service.UserService;
+import com.poo.parking_api.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,8 @@ public class TicketController {
     private ParkingService parkingService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private VehicleService vehicleService;
 
     @GetMapping("/tickets")
     public String tickets(Model model) {
@@ -30,14 +33,16 @@ public class TicketController {
     public String newTicket(Model model) {
         model.addAttribute("ticket", new Ticket());
         model.addAttribute("statuses", TicketStatus.values()); // Enum de status
-        model.addAttribute("parkingLots", parkingService.findAll()); // Lista de estacionamentos
+        model.addAttribute("parkings", parkingService.findAll()); // Lista de estacionamentos
         model.addAttribute("users", userService.findAll()); // Lista de usuários (se necessário)
+        model.addAttribute("vehicles", vehicleService.findAll());
         return "ticket/new";
     }
 
     @PostMapping("/ticket")
-    public void createTicket(@ModelAttribute Ticket ticket) {
+    public String createTicket(@ModelAttribute Ticket ticket) {
         ticketService.createTicket(ticket);
+        return "ticket/new";
     }
 
     @GetMapping("/{id}")
