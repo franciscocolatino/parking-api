@@ -49,6 +49,10 @@ public class TicketService {
         }
     }*/
 
+    public void deleteTicket(String id) {
+        ticketRepository.deleteById(id);
+    }
+
     public float calculatePayment(Ticket ticket) {
         return ticket.getPaymentTotal();
     }

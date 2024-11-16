@@ -47,6 +47,12 @@ public class TicketController {
         return "/tickets?" + message;
     }
 
+    @GetMapping("/ticket/delete/{id}")
+    public String deleteTicket(@PathVariable String id) {
+        ticketService.deleteTicket(id);
+        return "redirect:/tickets?ticketDeleted=true";
+    }
+
     @GetMapping("/{id}")
     public Ticket getTicket(@PathVariable String id) {
         return ticketService.getTicket(id);
@@ -60,5 +66,10 @@ public class TicketController {
     @PostMapping("/payment")
     public float calculatePayment(@RequestBody Ticket ticket) {
         return ticketService.calculatePayment(ticket);
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public String handleIllegalStateException(IllegalStateException e) {
+        return "redirect:/tickets?" + e.getMessage();
     }
 }

@@ -14,8 +14,9 @@ public class TicketEntityListener {
 
     @PreRemove
     public void validateBeforeRemove(Ticket ticket) {
-        if (!ticket.getStatus().equals(TicketStatus.FINALIZADO)) {
-            throw new IllegalStateException("errorCanNotRemoveTicketPending=true");
-        }
+        TicketStatus status = ticket.getStatus();
+        if (!status.equals(TicketStatus.ATIVO)) return;
+
+        throw new IllegalStateException("errorCanNotRemoveTicketPending=true");
     }
 }
