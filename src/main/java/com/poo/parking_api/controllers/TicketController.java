@@ -2,6 +2,7 @@ package com.poo.parking_api.controllers;
 
 import com.poo.parking_api.domain.ticket.Ticket;
 import com.poo.parking_api.domain.ticket.TicketStatus;
+import com.poo.parking_api.domain.vacancy.PriorityType;
 import com.poo.parking_api.service.ParkingService;
 import com.poo.parking_api.service.TicketService;
 import com.poo.parking_api.service.UserService;
@@ -36,13 +37,14 @@ public class TicketController {
         model.addAttribute("parkings", parkingService.findAll()); // Lista de estacionamentos
         model.addAttribute("users", userService.findAll()); // Lista de usuários (se necessário)
         model.addAttribute("vehicles", vehicleService.findAll());
+        model.addAttribute("priorityTypes", PriorityType.values());
         return "ticket/new";
     }
 
     @PostMapping("/ticket")
     public String createTicket(@ModelAttribute Ticket ticket) {
-        ticketService.createTicket(ticket);
-        return "ticket/new";
+        String message = ticketService.createTicket(ticket);
+        return "tickets?" + message;
     }
 
     @GetMapping("/{id}")

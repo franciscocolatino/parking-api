@@ -23,7 +23,7 @@
         <table class="table table-striped">
             <thead class="thead-dark">
             <tr>
-                <th>Placa do Carro</th>
+                <th>Código</th>
                 <th>Total Pago</th>
                 <th>Status</th>
                 <th>Data Início</th>
@@ -35,12 +35,12 @@
             </thead>
             <tbody>
             <tr th:each="ticket : ${tickets}">
-                <td th:text="${ticket.plateCar}">Placa do Carro</td>
+                <td th:text="${ticket.code}">Código</td>
                 <td th:text="${ticket.paymentTotal}">Total Pago</td>
                 <td th:text="${ticket.status}">Status</td>
-                <td th:text="${#dates.format(ticket.dateStart, 'dd/MM/yyyy HH:mm')}">Data Início</td>
-                <td th:text="${#dates.format(ticket.dateEnd, 'dd/MM/yyyy HH:mm')}">Data Fim</td>
-                <td th:text="${ticket.vacancy.name}">Vaga</td>
+                <td th:text="${#temporals.format(ticket.dateStart, 'dd/MM/yyyy HH:mm')}">Data Início</td>
+                <td th:text="${#temporals.format(ticket.dateEnd, 'dd/MM/yyyy HH:mm')}">Data Fim</td>
+                <td th:text="${ticket.vacancy}">Vaga</td>
                 <td th:text="${ticket.user.name}">Usuário</td>
                 <td>
                     <a th:href="@{/templates/ticket/edit/{id}(id=${ticket.id})}" class="btn btn-primary mr-2">Editar</a>

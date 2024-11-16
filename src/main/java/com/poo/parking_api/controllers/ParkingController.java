@@ -52,4 +52,9 @@ public class ParkingController {
         model.addAttribute("vacancies", parking.getVacancies());
         return "parking/edit";
     }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public String handleIllegalStateException(IllegalStateException e) {
+        return "redirect:/parking/list?" + e.getMessage();
+    }
 }

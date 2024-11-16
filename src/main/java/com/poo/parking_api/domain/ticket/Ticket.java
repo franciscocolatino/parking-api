@@ -2,11 +2,13 @@ package com.poo.parking_api.domain.ticket;
 
 import com.poo.parking_api.domain.parking.Parking;
 import com.poo.parking_api.domain.user.User;
+import com.poo.parking_api.domain.vacancy.PriorityType;
 import com.poo.parking_api.domain.vacancy.Vacancy;
 import com.poo.parking_api.domain.vehicle.Vehicle;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -15,12 +17,14 @@ import java.util.Date;
 @Entity(name = "ticket")
 @Getter
 @Setter
+@EntityListeners(TicketEntityListener.class)
 public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    //private String plateCar;
+
+    private String code;
     private TicketStatus status;
     private float paymentTotal;
     private LocalDateTime dateStart;
@@ -38,9 +42,10 @@ public class Ticket {
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 
-
     @Transient
     private Parking parking;
+    @Transient
+    private PriorityType priorityType;
 
 
     // Getters e Setters

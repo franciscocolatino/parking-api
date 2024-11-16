@@ -10,11 +10,16 @@
 <div th:include="sidebar :: sidebar"></div>
 
 <div class="flex-1 ml-64 p-8">
+  <h1 class="text-3xl font-bold mb-6">Lista de Estacionamentos</h1>
+
   <div th:if="${param.newParkingCreated}" class="mb-4 p-4 bg-green-100 text-green-700 rounded">
     Novo estacionamento criado com sucesso!
   </div>
 
-  <h1 class="text-3xl font-bold mb-6">Lista de Estacionamentos</h1>
+  <div th:if="${param.errorCanNotRemoveTicketPending}" class="mb-4 p-4 bg-red-100 text-red-700 rounded">
+    Não é possível excluir um estacionamento com tickets pendentes!
+  </div>
+
   <div class="flex justify-between items-center mb-6">
     <a href="/parking/new" class="btn btn-success">Adicionar Novo Estacionamento</a>
   </div>

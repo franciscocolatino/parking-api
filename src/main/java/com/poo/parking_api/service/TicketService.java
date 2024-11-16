@@ -1,12 +1,16 @@
 package com.poo.parking_api.service;
 
 import com.poo.parking_api.domain.ticket.Ticket;
+import com.poo.parking_api.domain.vacancy.Vacancy;
 import com.poo.parking_api.repository.TicketRepository;
 import com.poo.parking_api.repository.VacancyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TicketService {
@@ -18,9 +22,16 @@ public class TicketService {
     private VacancyRepository vacancyRepository;
 
     public String createTicket(Ticket ticket) {
-        System.out.println(vacancyRepository.buscarPorParking(ticket.getParking()));
-        //boolean existsTicket =  ticketRepository.existsConflictingTicket(ticket.getVacancy().getId(), ticket.getDateStart(), ticket.getDateEnd());
-        return "";
+        List<Vacancy> vacancies = vacancyRepository.findAvailableVacancyByParking(
+                ticket.getParking(), ticket.getDateStart(),
+                ticket.getDateEnd(), ticket.getPriorityType());
+        Optional<Vacancy> firstVacancy = vacancies.stream().findFirst();
+        if (firstVacancy.isEmpty()) return "parkingIsFull=true";
+
+        Vacancy vacancy = firstVacancy.get();
+        ticket.setVacancy(vacancy);
+        ticketRepository.save(ticket);
+        return "ticketCreated=true";
     }
 
     public List<Ticket> getAllTickets() {

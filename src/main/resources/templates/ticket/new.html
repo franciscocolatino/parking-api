@@ -47,6 +47,13 @@
             </div>
 
             <div class="form-group">
+                <label for="priorityType" class="font-bold">Prioridade</label>
+                <select id="priorityType" name="priorityType" th:field="*{priorityType}" class="form-control" required>
+                    <option th:each="priorityType : ${priorityTypes}" th:value="${priorityType}" th:text="${priorityType}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
                 <label for="user" class="font-bold">Usuário</label>
                 <select id="user" name="user" th:field="*{user}" class="form-control" required>
                     <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}"></option>
