@@ -53,9 +53,10 @@ public class TicketController {
         return "redirect:/tickets?ticketDeleted=true";
     }
 
-    @GetMapping("/{id}")
-    public Ticket getTicket(@PathVariable String id) {
-        return ticketService.getTicket(id);
+    @GetMapping("/ticket/{id}")
+    public String getTicket(@PathVariable String id, Model model) {
+        model.addAttribute("ticket", ticketService.getTicket(id));
+        return "ticket/show";
     }
 
 /*    @PutMapping("/{id}/status")

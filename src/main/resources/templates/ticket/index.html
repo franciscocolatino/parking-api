@@ -50,6 +50,7 @@
                 <td th:text="${ticket.vacancy.code}">Vaga</td>
                 <td th:text="${ticket.user.name}">Usuário</td>
                 <td>
+                    <a th:href="@{/ticket/{id}(id=${ticket.id})}" class="btn btn-info">Ver Detalhes</a>
                     <a th:href="@{/ticket/delete/{id}(id=${ticket.id})}" class="btn btn-danger" onclick="return confirm('Você tem certeza que deseja deletar este ticket?')">Deletar</a>
                 </td>
             </tr>
