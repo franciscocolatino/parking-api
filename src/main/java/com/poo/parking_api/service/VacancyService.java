@@ -1,16 +1,5 @@
 package com.poo.parking_api.service;
 
-<<<<<<< HEAD
-import java.time.LocalDateTime;
-
-public class VacancyService {
-
-    public boolean isVacancyAvailable(int vacancyId, LocalDateTime startDate, LocalDateTime endDate) {
-        return true;
-    }
-
-    public void updateVacancyStatus(int vacancyId, String status) {
-=======
 import com.poo.parking_api.domain.parking.Parking;
 import com.poo.parking_api.domain.vacancy.PriorityType;
 import com.poo.parking_api.domain.vacancy.Vacancy;
@@ -67,6 +56,5 @@ public class VacancyService {
             vacancy.setPriorityType(PriorityType.GENERAL);
             vacancies.add(vacancy);
         }
->>>>>>> 2a97ff39c04d32c077ca7d0c921e79f9602e8bf2
     }
 }
