@@ -5,7 +5,7 @@ CREATE TABLE tickets (
     date_start TIMESTAMP NOT NULL,
     date_end TIMESTAMP NOT NULL,
     priority_type INT NOT NULL,
-    vacancy_id TEXT NOT NULL,
+    vacancy_id UUID NOT NULL,
     vehicle_id TEXT NOT NULL,
     user_id TEXT NOT NULL,
     CONSTRAINT fk_vacancy FOREIGN KEY (vacancy_id) REFERENCES vacancies(id),

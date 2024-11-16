@@ -1,6 +1,7 @@
 spring:
   flyway:
     enabled: true
+    baseline-on-migrate: true
   datasource:
     url: "jdbc:postgresql://0.0.0.0:8080/parking_development_database"
     username: postgres

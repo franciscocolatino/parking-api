@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Nova Reserva</title>
+</head>
+<body>
+<h1>Nova Reserva</h1>
+
+<form th:action="@{/reservations}" th:object="${reservation}" method="post">
+    <div>
+        <label>Placa do Carro:</label>
+        <input type="text" th:field="*{plateCar}" placeholder="Digite a placa do carro" required/>
+    </div>
+
+    <div>
+        <label>ID da Vaga:</label>
+        <input type="number" th:field="*{vacancyId}" placeholder="Digite o ID da vaga" required/>
+    </div>
+
+    <div>
+        <label>ID do Funcionário:</label>
+        <input type="number" th:field="*{employeeId}" placeholder="Digite o ID do funcionário" required/>
+    </div>
+
+    <div>
+        <button type="submit">Criar Reserva</button>
+    </div>
+
+    <div th:if="${error}">
+        <p th:text="${error}" style="color: red;"></p>
+    </div>
+</form>
+</body>
+</html>

@@ -30,4 +30,8 @@ public class TicketService {
     public float calculatePayment(Ticket ticket) {
         return ticket.getPaymentTotal();
     }
+
+    public Ticket createTicket(String plateCar, int vacancyId, int i) {
+        return null;
+    }
 }

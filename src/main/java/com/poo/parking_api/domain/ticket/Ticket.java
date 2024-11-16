@@ -1,100 +1,55 @@
 package com.poo.parking_api.domain.ticket;
-
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-
 import java.util.Date;
 
 @Entity
 public class Ticket {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private Long id;  // Alterado para Long
     private String plateCar;
+    private int vacancyId;
+    private int employeeId;
     private float paymentTotal;
-    private String status;
+    private String status; // Status do ticket: "OPEN", "CLOSED"
     private Date dateStart;
     private Date dateEnd;
 
-//    @ManyToOne
-//    @JoinColumn(name = "vacancy_id")
-//    private Vacancy vacancy;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "employee_id")
-//    private Employee employee;
-
-    // Construtor padrão
-    public Ticket() {
-    }
-
-    // Getters e Setters
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
+    public Ticket(Long id, String plateCar, int vacancyId, int employeeId) {
         this.id = id;
-    }
-
-    public String getPlateCar() {
-        return plateCar;
-    }
-
-    public void setPlateCar(String plateCar) {
         this.plateCar = plateCar;
+        this.vacancyId = vacancyId;
+        this.employeeId = employeeId;
+        this.paymentTotal = 0.0f;
+        this.status = "OPEN";
+        this.dateStart = new Date();
     }
 
-    public float getPaymentTotal() {
-        return paymentTotal;
+    public Ticket() {
+
     }
 
     public void setPaymentTotal(float paymentTotal) {
         this.paymentTotal = paymentTotal;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Date getDateStart() {
-        return dateStart;
-    }
-
-    public void setDateStart(Date dateStart) {
-        this.dateStart = dateStart;
-    }
-
-    public Date getDateEnd() {
-        return dateEnd;
     }
 
     public void setDateEnd(Date dateEnd) {
         this.dateEnd = dateEnd;
     }
 
-//    public Vacancy getVacancy() {
-//        return vacancy;
-//    }
-//
-//    public void setVacancy(Vacancy vacancy) {
-//        this.vacancy = vacancy;
-//    }
-//
-//    public Employee getEmployee() {
-//        return employee;
-//    }
-//
-//    public void setEmployee(Employee employee) {
-//        this.employee = employee;
-//    }
+    public void setId(Long id) {  // Alterado para Long
+        this.id = id;
+    }
+
+    public Long getId() {  // Alterado para Long
+        return id;
+    }
+
+    public float getPaymentTotal() {
+        return paymentTotal;
+    }
 }

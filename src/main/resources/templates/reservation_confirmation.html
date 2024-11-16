@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Confirmação de Reserva</title>
+</head>
+<body>
+<h1>Reserva Criada com Sucesso</h1>
+
+<div>
+    <p><strong>ID da Reserva:</strong> <span th:text="${reservation.id}"></span></p>
+    <p><strong>Placa do Carro:</strong> <span th:text="${reservation.plateCar}"></span></p>
+    <p><strong>ID da Vaga:</strong> <span th:text="${reservation.vacancyId}"></span></p>
+    <p><strong>ID do Funcionário:</strong> <span th:text="${reservation.employeeId}"></span></p>
+    <p><strong>Data de Início:</strong> <span th:text="${reservation.dateStart}"></span></p>
+    <p><strong>ID do Ticket:</strong> <span th:text="${reservation.ticket.id}"></span></p>
+    <p><strong>Status do Ticket:</strong> <span th:text="${reservation.ticket.status}"></span></p>
+</div>
+
+<a th:href="@{/reservations/new}">Criar Nova Reserva</a>
+</body>
+</html>
