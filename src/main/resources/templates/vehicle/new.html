@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Veículo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 h-screen flex">
+<div th:include="sidebar :: sidebar"></div>
+
+<div class="flex-1 ml-64 p-8">
+    <h1 class="text-3xl font-bold mb-6">Criar Novo Veículo</h1>
+
+    <div class="bg-white p-6 rounded shadow">
+        <form th:action="@{/vehicle}" th:object="${vehicle}" method="post" class="space-y-4">
+            <div class="form-group">
+                <label for="plate" class="font-bold">Placa</label>
+                <input type="text" id="plate" name="plate" th:field="*{plate}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="model" class="font-bold">Modelo</label>
+                <input type="text" id="model" name="model" th:field="*{model}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="type" class="font-bold">Tipo</label>
+                <select id="type" name="type" th:field="*{type}" class="form-control" required>
+                    <option th:each="type : ${vehicleTypes}" th:value="${type}" th:text="${type}"></option>
+                </select>
+            </div>
+
+            <div class="flex justify-end">
+                <button type="submit" class="btn btn-success">Salvar</button>
+                <a href="/vehicles" class="btn btn-secondary ml-2">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

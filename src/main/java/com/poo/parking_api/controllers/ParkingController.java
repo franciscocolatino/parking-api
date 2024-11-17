@@ -14,6 +14,12 @@ public class ParkingController {
     @Autowired
     private ParkingService parkingService;
 
+    @PostMapping("/parking")
+    public String create(@ModelAttribute Parking parking) {
+        parkingService.create(parking);
+        return "redirect:/parking/list";
+    }
+
     @GetMapping("/parking/list")
     public String listParkings(Model model) {
         List<Parking> parkings = parkingService.findAll();
@@ -28,21 +34,27 @@ public class ParkingController {
     }
 
     @PostMapping("/parking/update/{id}")
-    public String updateParking(@PathVariable Long id, @ModelAttribute Parking parking) {
+    public String updateParking(@PathVariable String id, @ModelAttribute Parking parking) {
         parking.setId(id);
         parkingService.update(parking);
         return "redirect:/parking/list";
     }
     @GetMapping("/parking/delete/{id}")
-    public String deleteParking(@PathVariable Long id) {
+    public String deleteParking(@PathVariable String id) {
         parkingService.deleteParking(id);
         return "redirect:/parking/list";
     }
 
     @GetMapping("/parking/edit/{id}")
-    public String editParkingForm(@PathVariable Long id, Model model) {
+    public String editParkingForm(@PathVariable String id, Model model) {
         Parking parking = parkingService.getParkingById(id);
         model.addAttribute("parking", parking);
-        return "parking/edit";
+        model.addAttribute("vacancies", parking.getVacancies());
+        return "parking/show";
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public String handleIllegalStateException(IllegalStateException e) {
+        return "redirect:/parking/list?" + e.getMessage();
     }
 }

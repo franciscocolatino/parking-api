@@ -42,6 +42,13 @@
                     </option>
                 </select>
             </div>
+
+            <div class="form-group">
+                <label for="parking" class="font-bold">Estacionamento</label>
+                <select id="parking" name="parking" th:field="*{parking}" class="form-control" required>
+                    <option th:each="parking : ${parkings}" th:value="${parking.id}" th:text="${parking.name}"></option>
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary mr-2">Salvar</button>
             <a href="/users" class="btn btn-secondary">Voltar</a>
         </form>
