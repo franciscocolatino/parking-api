@@ -11,6 +11,9 @@
 
 <div class="flex-1 ml-64 p-8">
   <h1 class="text-3xl font-bold mb-6">Detalhes do Ticket</h1>
+  <div th:if="${param.hasSuccess}" th:text="${param.message}" class="mb-4 p-4 bg-green-100 text-green-700 rounded"></div>
+
+  <div th:if="${param.hasError}" th:text="${param.message}" class="mb-4 p-4 bg-red-100 text-red-700 rounded"></div>
 
   <div class="bg-white p-6 rounded shadow">
     <div class="mb-4">
@@ -19,6 +22,21 @@
       <p><strong>Status:</strong> <span th:text="${ticket.status}">STATUS</span></p>
       <p><strong>Total Pago:</strong> R$ <span th:text="${ticket.paymentTotal}">TOTAL PAGO</span></p>
     </div>
+
+    <div class="mb-4">
+      <h2 class="text-xl font-semibold">Atualizar Status</h2>
+      <form th:action="@{/ticket/update/{id}(id=${ticket.id})}" method="post">
+        <div class="flex items-center gap-4">
+          <select name="status" class="form-select w-full p-2 border rounded">
+            <option th:each="status : ${statuses}"
+                    th:value="${status}" th:text="${status}" th:selected="${status == ticket.status}">
+            </option>
+          </select>
+          <button type="submit" class="btn btn-primary">Atualizar</button>
+        </div>
+      </form>
+    </div>
+
 
     <div class="mb-4">
       <h2 class="text-xl font-semibold">Datas</h2>

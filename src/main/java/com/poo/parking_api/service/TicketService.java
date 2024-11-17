@@ -1,6 +1,7 @@
 package com.poo.parking_api.service;
 
 import com.poo.parking_api.domain.ticket.Ticket;
+import com.poo.parking_api.domain.ticket.TicketStatus;
 import com.poo.parking_api.domain.vacancy.Vacancy;
 import com.poo.parking_api.repository.TicketRepository;
 import com.poo.parking_api.repository.VacancyRepository;
@@ -31,7 +32,7 @@ public class TicketService {
         Vacancy vacancy = firstVacancy.get();
         ticket.setVacancy(vacancy);
         ticketRepository.save(ticket);
-        return "ticketCreated=true";
+        return "hasSuccess=true&message=" + "Ticket criado com sucesso!";
     }
 
     public List<Ticket> getAllTickets() {
@@ -41,13 +42,13 @@ public class TicketService {
         return ticketRepository.findById(id).orElse(null);
     }
 
-/*    public void setTicketStatus(String id, String status) {
+    public void setTicketStatus(String id, TicketStatus status) {
         Ticket ticket = ticketRepository.findById(id).orElse(null);
         if (ticket != null) {
             ticket.setStatus(status);
             ticketRepository.save(ticket);
         }
-    }*/
+    }
 
     public void deleteTicket(String id) {
         ticketRepository.deleteById(id);

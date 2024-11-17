@@ -15,16 +15,8 @@
         <a href="/ticket/new" class="btn btn-success">Adicionar Novo Ticket</a>
     </div>
 
-    <div th:if="${param.ticketCreated}" class="mb-4 p-4 bg-green-100 text-green-700 rounded">
-        Novo ticket criado com sucesso!
-    </div>
-    <div th:if="${param.ticketDeleted}" class="mb-4 p-4 bg-green-100 text-green-700 rounded">
-        Ticket removido com sucesso!
-    </div>
-    <div th:if="${param.errorCanNotRemoveTicketPending}" class="mb-4 p-4 bg-red-100 text-red-700 rounded">
-        Não é possível remover um ticket ativo!
-    </div>
-
+    <div th:if="${param.hasSuccess}" th:text="${param.message}" class="mb-4 p-4 bg-green-100 text-green-700 rounded"></div>
+    <div th:if="${param.hasError}" th:text="${param.message}" class="mb-4 p-4 bg-red-100 text-red-700 rounded"></div>
 
     <div class="bg-white p-6 rounded shadow">
         <table class="table table-striped">

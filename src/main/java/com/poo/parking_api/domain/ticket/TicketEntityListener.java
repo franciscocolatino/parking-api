@@ -17,6 +17,6 @@ public class TicketEntityListener {
         TicketStatus status = ticket.getStatus();
         if (!status.equals(TicketStatus.ATIVO)) return;
 
-        throw new IllegalStateException("errorCanNotRemoveTicketPending=true");
+        throw new IllegalStateException("Não é possível excluir um ticket ativo!");
     }
 }
