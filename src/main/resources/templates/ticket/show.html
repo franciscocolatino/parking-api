@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalhes do Ticket</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 h-screen flex">
+<div th:include="sidebar :: sidebar"></div>
+
+<div class="flex-1 ml-64 p-8">
+  <h1 class="text-3xl font-bold mb-6">Detalhes do Ticket</h1>
+  <div th:if="${param.hasSuccess}" th:text="${param.message}" class="mb-4 p-4 bg-green-100 text-green-700 rounded"></div>
+
+  <div th:if="${param.hasError}" th:text="${param.message}" class="mb-4 p-4 bg-red-100 text-red-700 rounded"></div>
+
+  <div class="bg-white p-6 rounded shadow">
+    <div class="mb-4">
+      <h2 class="text-xl font-semibold">Informações Gerais</h2>
+      <p><strong>Código:</strong> <span th:text="${ticket.code}">CÓDIGO</span></p>
+      <p><strong>Estacionamento:</strong> <span th:text="${ticket.vacancy.parking.name}">ESTACIONAMENTO</span></p>
+      <p><strong>Status:</strong> <span th:text="${ticket.status}">STATUS</span></p>
+      <p><strong>Total Pago:</strong> R$ <span th:text="${ticket.paymentTotal}">TOTAL PAGO</span></p>
+    </div>
+
+    <div class="mb-4">
+      <h2 class="text-xl font-semibold">Atualizar Status</h2>
+      <form th:action="@{/ticket/update/{id}(id=${ticket.id})}" method="post">
+        <div class="flex items-center gap-4">
+          <select name="status" class="form-select w-full p-2 border rounded">
+            <option th:each="status : ${statuses}"
+                    th:value="${status}" th:text="${status}" th:selected="${status == ticket.status}">
+            </option>
+          </select>
+          <button type="submit" class="btn btn-primary">Atualizar</button>
+        </div>
+      </form>
+    </div>
+
+
+    <div class="mb-4">
+      <h2 class="text-xl font-semibold">Datas</h2>
+      <p><strong>Data de Início:</strong> <span th:text="${#temporals.format(ticket.dateStart, 'dd/MM/yyyy HH:mm')}">DATA INÍCIO</span></p>
+      <p><strong>Data de Fim:</strong> <span th:text="${#temporals.format(ticket.dateEnd, 'dd/MM/yyyy HH:mm')}">DATA FIM</span></p>
+    </div>
+
+    <div class="mb-4">
+      <h2 class="text-xl font-semibold">Detalhes da Vaga</h2>
+      <p><strong>Código da Vaga:</strong> <span th:text="${ticket.vacancy.code}">CÓDIGO VAGA</span></p>
+      <p><strong>Tipo da Vaga:</strong> <span th:text="${ticket.vacancy.vacancyType}">TIPO DA VAGA</span></p>
+      <p><strong>Prioridade:</strong> <span th:text="${ticket.vacancy.priorityType}">PRIORIDADE</span></p>
+    </div>
+
+    <div class="mb-4">
+      <h2 class="text-xl font-semibold">Detalhes do Usuário</h2>
+      <p><strong>Nome do Usuário:</strong> <span th:text="${ticket.user.name}">NOME DO USUÁRIO</span></p>
+      <p><strong>Email:</strong> <span th:text="${ticket.user.email}">EMAIL DO USUÁRIO</span></p>
+    </div>
+
+    <div class="flex justify-between">
+      <a th:href="@{/tickets}" class="btn btn-secondary">Voltar</a>
+      <a th:href="@{/ticket/delete/{id}(id=${ticket.id})}" class="btn btn-danger"
+         onclick="return confirm('Você tem certeza que deseja deletar este ticket?')">Deletar Ticket</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

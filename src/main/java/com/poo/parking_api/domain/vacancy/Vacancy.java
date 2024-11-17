@@ -21,13 +21,14 @@ public class Vacancy {
     private String id;
     private VacancyType vacancyType;
     private PriorityType priorityType;
+    private String code;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parking_id")  // Nome da coluna que faz a referência para Parking
     private Parking parking;  // Referência ao estacionamento
 
     // Relacionamento com Ticket
-    @OneToMany(mappedBy = "vacancy")  // mappedBy faz referência ao atributo 'vacancy' em Ticket
+    @OneToMany(mappedBy = "vacancy", cascade = CascadeType.REMOVE)  // mappedBy faz referência ao atributo 'vacancy' em Ticket
     private List<Ticket> tickets;
 
 }

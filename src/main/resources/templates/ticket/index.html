@@ -10,20 +10,19 @@
 <div th:include="sidebar :: sidebar"></div>
 
 <div class="flex-1 ml-64 p-8">
-    <div th:if="${param.newTicketCreated}" class="mb-4 p-4 bg-green-100 text-green-700 rounded">
-        Novo ticket criado com sucesso!
-    </div>
-
     <h1 class="text-3xl font-bold mb-6">Lista de Tickets</h1>
     <div class="flex justify-between items-center mb-6">
         <a href="/ticket/new" class="btn btn-success">Adicionar Novo Ticket</a>
     </div>
 
+    <div th:if="${param.hasSuccess}" th:text="${param.message}" class="mb-4 p-4 bg-green-100 text-green-700 rounded"></div>
+    <div th:if="${param.hasError}" th:text="${param.message}" class="mb-4 p-4 bg-red-100 text-red-700 rounded"></div>
+
     <div class="bg-white p-6 rounded shadow">
         <table class="table table-striped">
             <thead class="thead-dark">
             <tr>
-                <th>Placa do Carro</th>
+                <th>Código</th>
                 <th>Total Pago</th>
                 <th>Status</th>
                 <th>Data Início</th>
@@ -35,16 +34,16 @@
             </thead>
             <tbody>
             <tr th:each="ticket : ${tickets}">
-                <td th:text="${ticket.plateCar}">Placa do Carro</td>
+                <td th:text="${ticket.code}">Código</td>
                 <td th:text="${ticket.paymentTotal}">Total Pago</td>
                 <td th:text="${ticket.status}">Status</td>
-                <td th:text="${#dates.format(ticket.dateStart, 'dd/MM/yyyy HH:mm')}">Data Início</td>
-                <td th:text="${#dates.format(ticket.dateEnd, 'dd/MM/yyyy HH:mm')}">Data Fim</td>
-                <td th:text="${ticket.vacancy.name}">Vaga</td>
+                <td th:text="${#temporals.format(ticket.dateStart, 'dd/MM/yyyy HH:mm')}">Data Início</td>
+                <td th:text="${#temporals.format(ticket.dateEnd, 'dd/MM/yyyy HH:mm')}">Data Fim</td>
+                <td th:text="${ticket.vacancy.code}">Vaga</td>
                 <td th:text="${ticket.user.name}">Usuário</td>
                 <td>
-                    <a th:href="@{/templates/ticket/edit/{id}(id=${ticket.id})}" class="btn btn-primary mr-2">Editar</a>
-                    <a th:href="@{/templates/ticket/delete/{id}(id=${ticket.id})}" class="btn btn-danger" onclick="return confirm('Você tem certeza que deseja deletar este ticket?')">Deletar</a>
+                    <a th:href="@{/ticket/{id}(id=${ticket.id})}" class="btn btn-info">Ver Detalhes</a>
+                    <a th:href="@{/ticket/delete/{id}(id=${ticket.id})}" class="btn btn-danger" onclick="return confirm('Você tem certeza que deseja deletar este ticket?')">Deletar</a>
                 </td>
             </tr>
             </tbody>

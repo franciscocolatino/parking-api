@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -25,10 +26,10 @@ public class VacancyService {
 
         List<Vacancy> vacancies = new ArrayList<>();
 
-        generateVacanciesForType(parking, vacancies, carCapacity, VacancyType.CAR, Parking.PRIORITY_PERCENTAGE);
-        generateVacanciesForType(parking, vacancies, motocycleCapacity, VacancyType.MOTORCYCLE, Parking.PRIORITY_PERCENTAGE);
-        generateVacanciesForType(parking, vacancies, bicycleCapacity, VacancyType.BICYCLE, Parking.PRIORITY_PERCENTAGE);
-        generateVacanciesForType(parking, vacancies, truckCapacity, VacancyType.TRUCK, Parking.PRIORITY_PERCENTAGE);
+        generateVacanciesForType(parking, vacancies, carCapacity, VacancyType.CARRO, Parking.PRIORITY_PERCENTAGE);
+        generateVacanciesForType(parking, vacancies, motocycleCapacity, VacancyType.MOTO, Parking.PRIORITY_PERCENTAGE);
+        generateVacanciesForType(parking, vacancies, bicycleCapacity, VacancyType.BICICLETA, Parking.PRIORITY_PERCENTAGE);
+        generateVacanciesForType(parking, vacancies, truckCapacity, VacancyType.CAMINHÃO, Parking.PRIORITY_PERCENTAGE);
 
         vacancyRepository.saveAll(vacancies);
     }
@@ -38,13 +39,18 @@ public class VacancyService {
         int priorityCount = (int) Math.ceil(capacity * priorityPercentage); // Vagas prioritárias
         int generalCount = capacity - priorityCount; // Vagas gerais
 
-        PriorityType[] priorityTypes = PriorityType.values();
+        PriorityType[] relevantPriorityTypes = Arrays.stream(PriorityType.values())
+                .filter(priority -> priority != PriorityType.GERAL)
+                .toArray(PriorityType[]::new);
 
         for (int i = 0; i < priorityCount; i++) {
             Vacancy vacancy = new Vacancy();
+            PriorityType priorityType = relevantPriorityTypes[i % relevantPriorityTypes.length]; // Alterna entre os tipos de prioridade
+
             vacancy.setParking(parking);
-            vacancy.setVacancyType(vacancyType);  // Tipo de vaga (Carro, Moto, etc)
-            vacancy.setPriorityType(priorityTypes[i % priorityTypes.length]);  // Alterna entre os tipos de prioridade
+            vacancy.setVacancyType(vacancyType);
+            vacancy.setCode(vacancyType.toString().substring(0, 1) + "-" + (i + 1) + "-" + priorityType.toString().substring(0, 1));
+            vacancy.setPriorityType(priorityType);
             vacancies.add(vacancy);
         }
 
@@ -53,7 +59,8 @@ public class VacancyService {
             Vacancy vacancy = new Vacancy();
             vacancy.setParking(parking);
             vacancy.setVacancyType(vacancyType);
-            vacancy.setPriorityType(PriorityType.GENERAL);
+            vacancy.setCode(vacancyType.toString().substring(0, 1) + "-" + (i + 1) + "-" + PriorityType.GERAL);
+            vacancy.setPriorityType(PriorityType.GERAL);
             vacancies.add(vacancy);
         }
     }

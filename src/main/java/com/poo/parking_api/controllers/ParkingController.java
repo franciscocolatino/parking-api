@@ -50,6 +50,11 @@ public class ParkingController {
         Parking parking = parkingService.getParkingById(id);
         model.addAttribute("parking", parking);
         model.addAttribute("vacancies", parking.getVacancies());
-        return "parking/edit";
+        return "parking/show";
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public String handleIllegalStateException(IllegalStateException e) {
+        return "redirect:/parking/list?" + e.getMessage();
     }
 }

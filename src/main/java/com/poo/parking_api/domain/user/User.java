@@ -1,5 +1,6 @@
 package com.poo.parking_api.domain.user;
 
+import com.poo.parking_api.domain.parking.Parking;
 import jakarta.persistence.*;
 import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -31,12 +32,9 @@ public class User implements UserDetails {
     @Enumerated(EnumType.ORDINAL)
     private UserRole role;
 
-    public User(RequestUser requestUser) {
-        this.name = requestUser.name();
-        this.email = requestUser.email();
-        this.password = requestUser.password();
-        this.role = requestUser.role();
-    }
+    @ManyToOne
+    @JoinColumn(name = "parking_id")
+    private Parking parking;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

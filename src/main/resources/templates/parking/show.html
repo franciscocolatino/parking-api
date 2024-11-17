@@ -26,7 +26,7 @@
       <table class="table table-striped mt-4">
         <thead>
         <tr>
-          <th>ID</th>
+          <th>Código</th>
           <th>Tipo</th>
           <th>Prioridade</th>
           <th>Ações</th>
@@ -34,7 +34,7 @@
         </thead>
         <tbody>
         <tr th:each="vacancy : ${vacancies}">
-          <td th:text="${vacancy.id}"></td>
+          <td th:text="${vacancy.code}"></td>
           <td th:text="${vacancy.vacancyType}"></td>
           <td th:text="${vacancy.priorityType}"></td>
           <td>

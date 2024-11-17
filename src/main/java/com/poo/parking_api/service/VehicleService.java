@@ -20,4 +20,8 @@ public class VehicleService {
     public List<Vehicle> findAll() {
         return vehicleRepository.findAll();
     }
+
+    public Vehicle findById(String id) {
+        return vehicleRepository.findById(id).orElse(null);
+    }
 }
