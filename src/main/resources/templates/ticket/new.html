@@ -35,7 +35,7 @@
             <div class="form-group">
                 <label for="parking" class="font-bold">Estacionamento</label>
                 <select id="parking" name="parking" th:field="*{parking}" class="form-control" required>
-                    <option th:each="parking : ${parkings}" th:value="${parking.id}" th:text="${parking.name}"></option>
+                    <option th:each="parking : ${parkings}" th:value="${parking}" th:text="${parking.name}"></option>
                 </select>
             </div>
 

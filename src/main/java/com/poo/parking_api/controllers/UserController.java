@@ -1,13 +1,12 @@
 package com.poo.parking_api.controllers;
 
-import com.poo.parking_api.domain.user.RequestUser;
 import com.poo.parking_api.domain.user.User;
 import com.poo.parking_api.domain.user.UserRepository;
 import com.poo.parking_api.domain.user.UserRole;
+import com.poo.parking_api.repository.ParkingRepository;
 import com.poo.parking_api.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Controller
 public class UserController {
@@ -25,6 +23,8 @@ public class UserController {
     private UserRepository repository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ParkingRepository parkingRepository;
 
     @GetMapping("/users")
     public String index(Model model) {
@@ -39,6 +39,7 @@ public class UserController {
         if (user.isPresent()) {
             model.addAttribute("user", user.get());
             model.addAttribute("roles", UserRole.values());
+            model.addAttribute("parkings", parkingRepository.findAll());
         } else {
             return "redirect:/users?error=userNotFound";
         }

@@ -34,6 +34,7 @@ public class UserService {
             existingUser.setName(user.getName());
             existingUser.setEmail(user.getEmail());
             existingUser.setRole(user.getRole());
+            existingUser.setParking(user.getParking());
             // Salva o usuário atualizado no banco de dados
             repository.save(existingUser);
             return true;
@@ -44,5 +45,25 @@ public class UserService {
     public List<User> findAll() {
         return repository.findAll();
     }
+
+    public User findByEmail(String Email) {
+        Optional<User> userOptional = repository.findByEmail(Email);
+        if (userOptional.isPresent()) {
+            return userOptional.get();
+        } else {
+            return null;
+        }
+    }
+
+
+    public User findByName(String name) {
+        Optional<User> userOptional = repository.findByName(name);
+        if (userOptional.isPresent()) {
+            return userOptional.get();
+        } else {
+            return null;
+        }
+    }
+
 
 }
