@@ -24,10 +24,6 @@ public class TicketService {
     private VacancyRepository vacancyRepository;
 
     public String createTicket(Ticket ticket) {
-        System.out.println(ticket.getParking());
-        System.out.println(ticket.getDateEnd());
-        System.out.println(ticket.getDateStart());
-        System.out.println(ticket.getPriorityType());
         List<Vacancy> vacancies = vacancyRepository.findAvailableVacancyByParking(
                 ticket.getParking(), ticket.getDateStart(),
                 ticket.getDateEnd(), ticket.getPriorityType());
