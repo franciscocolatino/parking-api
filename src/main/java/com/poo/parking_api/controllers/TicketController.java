@@ -8,9 +8,12 @@ import com.poo.parking_api.service.TicketService;
 import com.poo.parking_api.service.UserService;
 import com.poo.parking_api.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 @Controller
 public class TicketController {
@@ -61,13 +64,16 @@ public class TicketController {
     }
 
     @PostMapping("/ticket/update/{id}")
-    public String updateTicketStatus(@PathVariable String id, @RequestParam("status") TicketStatus status, Model model) {
+    public String updateTicketStatus(@PathVariable String id, @RequestParam(value = "status", required = false) TicketStatus status,
+                                     @RequestParam(value = "dateEnd", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime dateEnd,
+                                     Model model) {
         try {
-            ticketService.setTicketStatus(id, status);
+            ticketService.updateTicket(id, status, dateEnd);
         } catch (IllegalArgumentException e) {
-            return "redirect/ticket" + id + "?hasError=true&message=" + e.getMessage();
+            return "redirect:/ticket/" + id + "?hasError=true&message=" + e.getMessage();
         }
-        return "redirect:/ticket/" + id + "?hasSuccess=true&message=" + "Ticket atualizado com sucesso!";
+
+        return "redirect:/ticket/" + id + "?hasSuccess=true&message=Ticket atualizado com sucesso!";
     }
 
     @PostMapping("/payment")

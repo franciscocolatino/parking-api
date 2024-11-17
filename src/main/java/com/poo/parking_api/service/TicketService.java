@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,13 +43,16 @@ public class TicketService {
         return ticketRepository.findById(id).orElse(null);
     }
 
-    public void setTicketStatus(String id, TicketStatus status) {
-        Ticket ticket = ticketRepository.findById(id).orElse(null);
-        if (ticket != null) {
-            ticket.setStatus(status);
-            ticketRepository.save(ticket);
-        }
+    public void updateTicket(String id, TicketStatus status, LocalDateTime dateEnd) {
+        Ticket ticket = ticketRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("Ticket não encontrado"));
+
+        if (status != null) ticket.setStatus(status);
+        if (dateEnd != null) ticket.setDateEnd(dateEnd);
+
+        ticketRepository.save(ticket);
     }
+
 
     public void deleteTicket(String id) {
         ticketRepository.deleteById(id);

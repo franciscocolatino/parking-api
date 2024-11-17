@@ -19,6 +19,7 @@
     <div class="mb-4">
       <h2 class="text-xl font-semibold">Informações Gerais</h2>
       <p><strong>Código:</strong> <span th:text="${ticket.code}">CÓDIGO</span></p>
+      <p><strong>Estacionamento:</strong> <span th:text="${ticket.vacancy.parking.name}">ESTACIONAMENTO</span></p>
       <p><strong>Status:</strong> <span th:text="${ticket.status}">STATUS</span></p>
       <p><strong>Total Pago:</strong> R$ <span th:text="${ticket.paymentTotal}">TOTAL PAGO</span></p>
     </div>
