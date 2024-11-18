@@ -43,12 +43,46 @@
         <td th:text="${parking.vacanciesAvailable}">Vagas Disponíveis</td>
         <td>
           <a th:href="@{/parking/edit/{id}(id=${parking.id})}" class="btn btn-primary mr-2">Editar</a>
-          <a th:href="@{/parking/delete/{id}(id=${parking.id})}" class="btn btn-danger" onclick="return confirm('Você tem certeza que deseja deletar este estacionamento?')">Deletar</a>
+          <a href="#" class="btn btn-danger" data-id="${parking.id}" onclick="showDeleteModal(this)">Deletar</a>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
 </div>
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmação</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Você tem certeza que deseja deletar este estacionamento?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <a id="confirmDeleteButton" href="#" class="btn btn-danger">Deletar</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  function showDeleteModal(element) {
+    const parkingId = element.getAttribute('data-id');
+
+    const confirmButton = document.getElementById('confirmDeleteButton');
+    confirmButton.href = `/parking/delete/${parkingId}`;
+
+    $('#confirmDeleteModal').modal('show');
+  }
+</script>
 </body>
 </html>
