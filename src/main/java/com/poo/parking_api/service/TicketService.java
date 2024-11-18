@@ -32,7 +32,7 @@ public class TicketService {
                 ticket.getDateEnd(), ticket.getPriorityType());
         Optional<Vacancy> firstVacancy = vacancies.stream().findFirst();
 
-        if (firstVacancy.isEmpty()) return "hasError=true&message=" + "O Estacionamento já está cheio!";
+//        if (firstVacancy.isEmpty()) return "hasError=true&message=" + "O Estacionamento já está cheio!";
 
         Vacancy vacancy = firstVacancy.get();
         ticket.setVacancy(vacancy);
