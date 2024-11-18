@@ -33,6 +33,7 @@ public class PaymentController {
     @PostMapping("/pay/{ticketId}")
     public String processPayment(@PathVariable String ticketId, @RequestParam float paidAmount, Model model) {
         Ticket ticket = ticketService.getTicket(ticketId);
+//        valor superior ao total será entendido como gratificação extra
         if (ticket != null) {
             float paymentAmount = ticketService.calculatePayment(ticket);
             if (paidAmount >= paymentAmount) {
