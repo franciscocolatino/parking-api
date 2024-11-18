@@ -13,12 +13,12 @@
         </div>
         <nav class="mt-6">
             <a th:href="@{/hello}" class="block py-2.5 px-4 hover:bg-gray-700">Início</a>
-            <a th:href="@{/parkings}" class="block py-2.5 px-4 hover:bg-gray-700">Estacionamentos</a>
+            <a th:href="@{/parkings}" sec:authorize="hasAuthority('ADMIN')" class="block py-2.5 px-4 hover:bg-gray-700">Estacionamentos</a>
             <a th:href="@{/users}" sec:authorize="hasAuthority('ADMIN')" class="block py-2.5 px-4 hover:bg-gray-700">Usuários</a>
-            <a th:href="@{/vehicles}" class="block py-2.5 px-4 hover:bg-gray-700">Veiculos</a>
+            <a th:href="@{/vehicles}" sec:authorize="hasAuthority('ADMIN')" class="block py-2.5 px-4 hover:bg-gray-700">Veiculos</a>
             <a th:href="@{/tickets}" class="block py-2.5 px-4 hover:bg-gray-700">Tickets</a>
             <a th:href="@{/ticket/operator_new}" class="block py-2.5 px-4 hover:bg-gray-700">Operador</a>
-            <a href="#" class="block py-2.5 px-4 hover:bg-gray-700">Perfil</a>
+            <a th:href="@{/profile}" class="block py-2.5 px-4 hover:bg-gray-700">Perfil</a>
 
             <a th:href="@{/logout}" class="block py-2.5 px-4 hover:bg-gray-700">Sair</a>
         </nav>

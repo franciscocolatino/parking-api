@@ -15,8 +15,9 @@
 
     <div class="bg-white p-6 rounded shadow">
         <h2 class="text-xl font-semibold">Informações do Peril</h2>
-        <p class="mt-2">Nome do usuário: <span th:text="${name}" class="font-medium text-gray-700"></span></p>
-        <p class="mt-2">Roles: <span th:text="${roles}" class="font-medium text-gray-700"></span></p>
+        <p class="mt-2">Nome do usuário: <span th:text="${user.name}" class="font-medium text-gray-700"></span></p>
+        <p class="mt-2">Role: <span th:text="${role}" class="font-medium text-gray-700"></span></p>
+        <p class="mt-2">Estacionamento: <span th:text="${user.parking?.name}" class="font-medium text-gray-700"></span></p>
     </div>
 </div>
 </body>
