@@ -15,46 +15,44 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class UserService {
+public class UserService implements BaseService<User, String> {
 
     @Autowired
     private UserRepository repository;
 
     private final PasswordEncoder passwordEncoder;
 
-    public void register(User user) {
+    @Override
+    public User create(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        repository.save(user);
+        user = repository.save(user);
+        return user;
     }
 
-    public Boolean update(String id, User user) {
-        Optional<User> userOptional = repository.findById(id);
-        if (userOptional.isPresent()) {
-            User existingUser = userOptional.get();
-            existingUser.setName(user.getName());
-            existingUser.setEmail(user.getEmail());
-            existingUser.setRole(user.getRole());
-            existingUser.setParking(user.getParking());
-            // Salva o usuário atualizado no banco de dados
-            repository.save(existingUser);
-            return true;
-        }
-        return false;
+    @Override
+    public User update(User user) {
+        User existing = repository.findById(user.getId()).get();
+        existing.setEmail(user.getEmail());
+        existing.setParking(user.getParking());
+        existing.setRole(user.getRole());
+        existing.setName(user.getName());
+        existing = repository.save(existing);
+        return existing;
+    }
+
+    @Override
+    public User findById(String id) {
+        return repository.findById(id).orElse(null);
     }
 
     public List<User> findAll() {
         return repository.findAll();
     }
 
-    public User findByEmail(String Email) {
-        Optional<User> userOptional = repository.findByEmail(Email);
-        if (userOptional.isPresent()) {
-            return userOptional.get();
-        } else {
-            return null;
-        }
+    @Override
+    public void delete(String id) {
+        repository.deleteById(id);
     }
-
 
     public User findByName(String name) {
         Optional<User> userOptional = repository.findByName(name);
