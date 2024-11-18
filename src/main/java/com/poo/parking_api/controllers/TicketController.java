@@ -7,6 +7,7 @@ import com.poo.parking_api.domain.user.User;
 import com.poo.parking_api.domain.vacancy.PriorityType;
 import com.poo.parking_api.domain.vehicle.Vehicle;
 import com.poo.parking_api.domain.vehicle.VehicleType;
+import com.poo.parking_api.repository.VehicleRepository;
 import com.poo.parking_api.service.ParkingService;
 import com.poo.parking_api.service.TicketService;
 import com.poo.parking_api.service.UserService;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class TicketController {
@@ -33,6 +35,8 @@ public class TicketController {
     private UserService userService;
     @Autowired
     private VehicleService vehicleService;
+    @Autowired
+    private VehicleRepository vehicleRepository;
 
     @GetMapping("/tickets")
     public String tickets(Model model) {
@@ -57,23 +61,10 @@ public class TicketController {
     }
 
     @PostMapping("/ticket/operator_new")
-    public String generateTicketOperator(@ModelAttribute Ticket ticket, @AuthenticationPrincipal UserDetails userDetails,
-                                         @RequestParam("vehicleSelection") String vehicleSelection) {
-
-        // Lógica para salvar o veículo (caso necessário)
-        if ("new".equals(vehicleSelection)) {
-            // O veículo será setado automaticamente no ticket devido ao uso do th:field no formulário
-            Vehicle newVehicle = ticket.getVehicle();
-            newVehicle = vehicleService.create(newVehicle);  // Salve o novo veículo
-            ticket.setVehicle(newVehicle);
-        } else if ("existing".equals(vehicleSelection)) {
-            // Lógica para selecionar o veículo existente
-            Vehicle existingVehicle = vehicleService.findById(ticket.getVehicle().getId()); // Acessando o id do veículo que foi passado no select
-            ticket.setVehicle(existingVehicle);
-        }
+    public String generateTicketOperator(@ModelAttribute Ticket ticket, @AuthenticationPrincipal UserDetails userDetails) {
+        vehicleService.create(ticket.getVehicle());
         LocalDateTime currentDateTime = LocalDateTime.now();
 
-        // Adicionar 5 horas à data e hora atual
         LocalDateTime dateStart = currentDateTime;
         LocalDateTime dateEnd = currentDateTime.plusHours(5);
         ticket.setDateStart(dateStart);
