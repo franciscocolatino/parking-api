@@ -23,7 +23,7 @@
             <thead class="thead-dark">
             <tr>
                 <th>Código</th>
-                <th>Total Pago</th>
+                <th>Valor total</th>
                 <th>Status</th>
                 <th>Data Início</th>
                 <th>Data Fim</th>
@@ -35,7 +35,7 @@
             <tbody>
             <tr th:each="ticket : ${tickets}">
                 <td th:text="${ticket.code}">Código</td>
-                <td th:text="${ticket.paymentTotal}">Total Pago</td>
+                <td th:text="${ticket.paymentTotal}">Total</td>
                 <td th:text="${ticket.status}">Status</td>
                 <td th:text="${#temporals.format(ticket.dateStart, 'dd/MM/yyyy HH:mm')}">Data Início</td>
                 <td th:text="${#temporals.format(ticket.dateEnd, 'dd/MM/yyyy HH:mm')}">Data Fim</td>
