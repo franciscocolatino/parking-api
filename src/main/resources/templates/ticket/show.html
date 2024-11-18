@@ -3,64 +3,83 @@
 <head>
   <meta charset="UTF-8">
   <title>Detalhes do Ticket</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
-<body class="bg-gray-100 h-screen flex">
-<div th:include="sidebar :: sidebar"></div>
+<body class="bg-gray-50 min-h-screen flex">
+<!-- Sidebar -->
+<div th:include="sidebar :: sidebar" class="w-64 bg-gray-800 text-white"></div>
 
-<div class="flex-1 ml-64 p-8">
-  <h1 class="text-3xl font-bold mb-6">Detalhes do Ticket</h1>
-  <div th:if="${param.hasSuccess}" th:text="${param.message}" class="mb-4 p-4 bg-green-100 text-green-700 rounded"></div>
+<!-- Main Content -->
+<div class="flex-1 p-8">
+  <!-- Header -->
+  <h1 class="text-3xl font-bold text-gray-700 mb-6">Detalhes do Ticket</h1>
 
-  <div th:if="${param.hasError}" th:text="${param.message}" class="mb-4 p-4 bg-red-100 text-red-700 rounded"></div>
+  <!-- Alert Messages -->
+  <div th:if="${param.hasSuccess}" th:text="${param.message}" class="mb-4 flex items-center p-4 bg-green-100 text-green-700 rounded">
+    <span class="material-icons mr-2">check_circle</span>
+  </div>
+  <div th:if="${param.hasError}" th:text="${param.message}" class="mb-4 flex items-center p-4 bg-red-100 text-red-700 rounded">
+    <span class="material-icons mr-2">error</span>
+  </div>
 
-  <div class="bg-white p-6 rounded shadow">
-    <div class="mb-4">
-      <h2 class="text-xl font-semibold">Informações Gerais</h2>
-      <p><strong>Código:</strong> <span th:text="${ticket.code}">CÓDIGO</span></p>
-      <p><strong>Estacionamento:</strong> <span th:text="${ticket.vacancy.parking.name}">ESTACIONAMENTO</span></p>
-      <p><strong>Status:</strong> <span th:text="${ticket.status}">STATUS</span></p>
-      <p><strong>Total Pago:</strong> R$ <span th:text="${ticket.paymentTotal}">TOTAL PAGO</span></p>
+  <!-- Ticket Details Card -->
+  <div class="bg-white shadow rounded-lg p-6">
+    <!-- General Information -->
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Informações Gerais</h2>
+      <div class="text-gray-600">
+        <p><strong>Código:</strong> <span th:text="${ticket.code}">CÓDIGO</span></p>
+        <p><strong>Estacionamento:</strong> <span th:text="${ticket.vacancy.parking.name}">ESTACIONAMENTO</span></p>
+        <p><strong>Status:</strong> <span th:text="${ticket.status}">STATUS</span></p>
+        <p><strong>Total Pago:</strong> R$ <span th:text="${ticket.paymentTotal}">TOTAL PAGO</span></p>
+      </div>
     </div>
 
-    <div class="mb-4">
-      <h2 class="text-xl font-semibold">Atualizar Status</h2>
-      <form th:action="@{/ticket/update/{id}(id=${ticket.id})}" method="post">
-        <div class="flex items-center gap-4">
-          <select name="status" class="form-select w-full p-2 border rounded">
-            <option th:each="status : ${statuses}"
-                    th:value="${status}" th:text="${status}" th:selected="${status == ticket.status}">
-            </option>
-          </select>
-          <button type="submit" class="btn btn-primary">Atualizar</button>
-        </div>
+    <!-- Update Status -->
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Atualizar Status</h2>
+      <form th:action="@{/ticket/update/{id}(id=${ticket.id})}" method="post" class="flex gap-4">
+        <select name="status" class="form-select w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+          <option th:each="status : ${statuses}" th:value="${status}" th:text="${status}" th:selected="${status == ticket.status}"></option>
+        </select>
+        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700">Atualizar</button>
       </form>
     </div>
 
-
-    <div class="mb-4">
-      <h2 class="text-xl font-semibold">Datas</h2>
-      <p><strong>Data de Início:</strong> <span th:text="${#temporals.format(ticket.dateStart, 'dd/MM/yyyy HH:mm')}">DATA INÍCIO</span></p>
-      <p><strong>Data de Fim:</strong> <span th:text="${#temporals.format(ticket.dateEnd, 'dd/MM/yyyy HH:mm')}">DATA FIM</span></p>
+    <!-- Dates -->
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Datas</h2>
+      <div class="text-gray-600">
+        <p><strong>Data de Início:</strong> <span th:text="${#temporals.format(ticket.dateStart, 'dd/MM/yyyy HH:mm')}">DATA INÍCIO</span></p>
+        <p><strong>Data de Fim:</strong> <span th:text="${#temporals.format(ticket.dateEnd, 'dd/MM/yyyy HH:mm')}">DATA FIM</span></p>
+      </div>
     </div>
 
-    <div class="mb-4">
-      <h2 class="text-xl font-semibold">Detalhes da Vaga</h2>
-      <p><strong>Código da Vaga:</strong> <span th:text="${ticket.vacancy.code}">CÓDIGO VAGA</span></p>
-      <p><strong>Tipo da Vaga:</strong> <span th:text="${ticket.vacancy.vacancyType}">TIPO DA VAGA</span></p>
-      <p><strong>Prioridade:</strong> <span th:text="${ticket.vacancy.priorityType}">PRIORIDADE</span></p>
+    <!-- Vacancy Details -->
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Detalhes da Vaga</h2>
+      <div class="text-gray-600">
+        <p><strong>Código da Vaga:</strong> <span th:text="${ticket.vacancy.code}">CÓDIGO VAGA</span></p>
+        <p><strong>Tipo da Vaga:</strong> <span th:text="${ticket.vacancy.vacancyType}">TIPO DA VAGA</span></p>
+        <p><strong>Prioridade:</strong> <span th:text="${ticket.vacancy.priorityType}">PRIORIDADE</span></p>
+      </div>
     </div>
 
-    <div class="mb-4">
-      <h2 class="text-xl font-semibold">Detalhes do Usuário</h2>
-      <p><strong>Nome do Usuário:</strong> <span th:text="${ticket.user.name}">NOME DO USUÁRIO</span></p>
-      <p><strong>Email:</strong> <span th:text="${ticket.user.email}">EMAIL DO USUÁRIO</span></p>
+    <!-- User Details -->
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Detalhes do Usuário</h2>
+      <div class="text-gray-600">
+        <p><strong>Nome do Usuário:</strong> <span th:text="${ticket.user.name}">NOME DO USUÁRIO</span></p>
+        <p><strong>Email:</strong> <span th:text="${ticket.user.email}">EMAIL DO USUÁRIO</span></p>
+      </div>
     </div>
 
+    <!-- Action Buttons -->
     <div class="flex justify-between">
-      <a th:href="@{/tickets}" class="btn btn-secondary">Voltar</a>
-      <a th:href="@{/ticket/delete/{id}(id=${ticket.id})}" class="btn btn-danger"
+      <a th:href="@{/tickets}" class="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700">Voltar</a>
+      <a th:href="@{/ticket/delete/{id}(id=${ticket.id})}" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
          onclick="return confirm('Você tem certeza que deseja deletar este ticket?')">Deletar Ticket</a>
     </div>
   </div>
