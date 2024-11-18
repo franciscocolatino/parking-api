@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Seleção de Tickets</title>
+</head>
+<body>
+<h1>Selecione um Ticket para Pagamento</h1>
+<ul>
+    <li th:each="ticket : ${tickets}">
+        <a th:href="@{/payment/ticket/{id}(id=${ticket.id})}">Ticket ID: <span th:text="${ticket.id}">1</span></a>
+    </li>
+</ul>
+</body>
+</html>

@@ -84,11 +84,11 @@ public class TicketController {
         return "redirect:/tickets?" + message;
     }
 
-    @GetMapping("/ticket/delete/{id}")
-    public String deleteTicket(@PathVariable String id) {
-        ticketService.deleteTicket(id);
-        return "redirect:/tickets?hasSuccess=true&message=" + "Ticket apagado com sucesso!";
-    }
+//    @GetMapping("/ticket/delete/{id}")
+//    public String deleteTicket(@PathVariable String id) {
+//        ticketService.deleteTicket(id);
+//        return "redirect:/tickets?hasSuccess=true&message=" + "Ticket apagado com sucesso!";
+//    }
 
     @GetMapping("/ticket/{id}")
     public String showTicket(@PathVariable String id, Model model) {
@@ -109,6 +109,11 @@ public class TicketController {
 
         return "redirect:/ticket/" + id + "?hasSuccess=true&message=Ticket atualizado com sucesso!";
     }
+
+//    @PostMapping("/payment")
+//    public float calculatePayment(@RequestBody Ticket ticket) {
+//        return ticketService.calculatePayment(ticket);
+//    }
 
     @ExceptionHandler(IllegalStateException.class)
     public String handleIllegalStateException(IllegalStateException e) {

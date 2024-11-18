@@ -8,10 +8,9 @@ import com.poo.parking_api.domain.vehicle.Vehicle;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @Table(name = "tickets")
 @Entity(name = "ticket")
@@ -57,12 +56,25 @@ public class Ticket {
         this.id = id;
     }
 
-    public float getPaymentTotal() {
+    public double getPaymentTotal() {
         return paymentTotal;
     }
 
-    public void setPaymentTotal(float paymentTotal) {
-        this.paymentTotal = paymentTotal;
+    public void setPaymentTotal(double paymentTotal) {
+        this.paymentTotal = (float) paymentTotal;
+    }
+
+    public double calcularValor() {
+        if (dateStart != null && dateEnd != null) {
+            long tempoEstacionado = TimeUnit.MILLISECONDS.toHours(java.sql.Timestamp.valueOf(dateEnd).getTime() - java.sql.Timestamp.valueOf(dateStart).getTime());
+            return tempoEstacionado * 10.0;
+        }
+        return 0.0;
+    }
+
+    public void finalizarPagamento(double valorPago) {
+        this.paymentTotal = (float) (float) valorPago;
+        this.status = TicketStatus.FINALIZADO;
     }
 
 //    public Vacancy getVacancy() {

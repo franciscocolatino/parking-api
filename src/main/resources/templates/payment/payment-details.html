@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalhes do Pagamento</title>
+</head>
+<body>
+<h1>Pagamento do Ticket</h1>
+<p>Ticket ID: <span th:text="${ticket.id}">1</span></p>
+<p>Valor a pagar: R$ <span th:text="${valor}">10.0</span></p>
+
+<form action="#" th:action="@{/payment/pay/{id}(id=${ticket.id})}" method="post">
+    <label for="valorPago">Valor Pago:</label>
+    <input type="number" id="valorPago" name="valorPago" step="0.01" min="0" required />
+    <button type="submit">Confirmar Pagamento</button>
+</form>
+</body>
+</html>

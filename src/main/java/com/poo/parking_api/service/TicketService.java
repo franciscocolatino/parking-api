@@ -71,7 +71,21 @@ public class TicketService {
 
         ticketRepository.save(ticket);
     }
+
     public void deleteTicket(String id) {
         ticketRepository.deleteById(id);
+    }
+
+    public float calculatePayment(Ticket ticket) {
+        ticket.calcularValor();
+        return (float) (float) ticket.getPaymentTotal();
+    }
+
+    public void finalizePayment(String id, float valorPago) {
+        Ticket ticket = ticketRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("Ticket não encontrado"));
+
+        ticket.finalizarPagamento(valorPago);
+        ticketRepository.save(ticket);
     }
 }
