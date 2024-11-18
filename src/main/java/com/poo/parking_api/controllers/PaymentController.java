@@ -26,6 +26,7 @@ public class PaymentController {
             model.addAttribute("paymentAmount", paymentAmount);
             return "payment/payment-form";
         }
+        model.addAttribute("errorMessage", "Ticket não encontrado.");
         return "error";
     }
 
