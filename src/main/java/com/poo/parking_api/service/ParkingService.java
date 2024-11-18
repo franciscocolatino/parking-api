@@ -8,19 +8,21 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ParkingService {
+public class ParkingService implements BaseService<Parking, String> {
 
     @Autowired
     private ParkingRepository parkingRepository;
     @Autowired
     private VacancyService vacancyService;
 
+    @Override
     public Parking create(Parking parking) {
         parkingRepository.save(parking);
         vacancyService.createVacancies(parking);
         return parking;
     }
 
+    @Override
     public Parking update(Parking parking) {
         if (parkingRepository.existsById(parking.getId())) {
             return parkingRepository.save(parking);
@@ -31,12 +33,12 @@ public class ParkingService {
     public List<Parking> findAll() {
         return parkingRepository.findAll();
     }
-
-    public Parking getParkingById(String id) {
+    @Override
+    public Parking findById(String id) {
         return parkingRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Parking not found"));
     }
 
-    public void deleteParking(String id) {
+    public void delete(String id) {
         parkingRepository.deleteById(id);
     }
 }

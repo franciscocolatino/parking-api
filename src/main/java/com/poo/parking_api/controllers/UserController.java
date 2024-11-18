@@ -69,17 +69,15 @@ public class UserController {
 
     @PostMapping("/users")
     public String create(@ModelAttribute User user) {
-        userService.register(user);
+        userService.create(user);
         return "redirect:/users?newUserCreated=true";
     }
 
     @PostMapping("/users/update/{id}")
     @Transactional
-    public String update(@PathVariable String id, @ModelAttribute User user) {
-        if (userService.update(id, user)) {
-            return "redirect:/users/" + id + "?newUserUpdated=true";
-        }
-        return "redirect:/users?error=userNotFound";
+    public String update(@ModelAttribute User user) {
+        userService.update(user);
+        return "redirect:/users/" + user.getId() + "?newUserUpdated=true";
     }
 
 

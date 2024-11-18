@@ -17,10 +17,10 @@ public class ParkingController {
     @PostMapping("/parking")
     public String create(@ModelAttribute Parking parking) {
         parkingService.create(parking);
-        return "redirect:/parking/list";
+        return "redirect:/parkings";
     }
 
-    @GetMapping("/parking/list")
+    @GetMapping("/parkings")
     public String listParkings(Model model) {
         List<Parking> parkings = parkingService.findAll();
         model.addAttribute("parkings", parkings);
@@ -28,7 +28,7 @@ public class ParkingController {
     }
 
     @GetMapping("/parking/new")
-    public String createParkingForm(Model model) {
+    public String createParking(Model model) {
         model.addAttribute("parking", new Parking());
         return "parking/new";
     }
@@ -37,17 +37,17 @@ public class ParkingController {
     public String updateParking(@PathVariable String id, @ModelAttribute Parking parking) {
         parking.setId(id);
         parkingService.update(parking);
-        return "redirect:/parking/list";
+        return "redirect:/parkings";
     }
     @GetMapping("/parking/delete/{id}")
     public String deleteParking(@PathVariable String id) {
-        parkingService.deleteParking(id);
-        return "redirect:/parking/list";
+        parkingService.delete(id);
+        return "redirect:/parkings";
     }
 
     @GetMapping("/parking/edit/{id}")
-    public String editParkingForm(@PathVariable String id, Model model) {
-        Parking parking = parkingService.getParkingById(id);
+    public String showParking(@PathVariable String id, Model model) {
+        Parking parking = parkingService.findById(id);
         model.addAttribute("parking", parking);
         model.addAttribute("vacancies", parking.getVacancies());
         return "parking/show";
@@ -55,6 +55,6 @@ public class ParkingController {
 
     @ExceptionHandler(IllegalStateException.class)
     public String handleIllegalStateException(IllegalStateException e) {
-        return "redirect:/parking/list?" + e.getMessage();
+        return "redirect:/parkings?" + e.getMessage();
     }
 }

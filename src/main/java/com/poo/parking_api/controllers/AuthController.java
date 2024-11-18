@@ -25,7 +25,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute User user) {
-        userService.register(user);
+        userService.create(user);
         return "redirect:/login?success=true";
     }
 

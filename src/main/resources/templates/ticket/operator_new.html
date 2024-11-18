@@ -5,108 +5,52 @@
     <title>Criar Ticket</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
-<div class="flex">
-    <!-- Sidebar -->
-    <aside class="w-64 bg-gray-800 text-white h-screen fixed">
-        <div class="p-4 text-xl font-bold border-b border-gray-700">
-            Parking Application
-        </div>
-        <nav class="mt-6">
-            <a th:href="@{/hello}" class="block py-2.5 px-4 hover:bg-gray-700">Início</a>
-            <a th:href="@{/parking/list}" class="block py-2.5 px-4 hover:bg-gray-700">Estacionamentos</a>
-            <a th:href="@{/users}" sec:authorize="hasAuthority('ADMIN')" class="block py-2.5 px-4 hover:bg-gray-700">Usuários</a>
-            <a th:href="@{/vehicles}" class="block py-2.5 px-4 hover:bg-gray-700">Veiculos</a>
-            <a th:href="@{/tickets}" class="block py-2.5 px-4 hover:bg-gray-700">Tickets</a>
-            <a th:href="@{/ticket/operator_new}" class="block py-2.5 px-4 hover:bg-gray-700">Operador</a>
-            <a href="#" class="block py-2.5 px-4 hover:bg-gray-700">Perfil</a>
-        </nav>
-    </aside>
+<body class="bg-gray-100 h-screen flex">
+<div th:include="sidebar :: sidebar"></div>
+<div class="flex-1 ml-64 p-8">
+    <h1 class="text-3xl font-bold mb-6">Criar Novo Ticket</h1>
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+        <form th:action="@{/ticket/operator_new}" th:object="${ticket}" method="post" class="space-y-4">
 
-    <!-- Main Content -->
-    <div class="ml-64 p-6 w-full">
-        <div class="bg-white p-6 rounded-lg shadow-lg">
-            <form th:action="@{/ticket/operator_new}" th:object="${ticket}" method="post" class="space-y-4">
+            <div class="form-group">
+                <label for="status" class="font-semibold text-lg">Status</label>
+                <select id="status" name="status" th:field="*{status}" class="form-control w-full p-2 rounded-lg border border-gray-300" required>
+                    <option th:value="${status}" th:text="${status}"></option>
+                </select>
+            </div>
 
-                <!-- Status -->
+            <div id="newVehicle" class="form-group">
+                <h3 class="font-semibold text-lg mb-4">Cadastrar Novo Veículo</h3>
                 <div class="form-group">
-                    <label for="status" class="font-semibold text-lg">Status</label>
-                    <select id="status" name="status" th:field="*{status}" class="form-control w-full p-2 rounded-lg border border-gray-300" required>
-                        <option th:value="${status}" th:text="${status}"></option>
-                    </select>
+                    <label for="plate" class="font-semibold text-lg">Placa</label>
+                    <input type="text" id="plate" name="ticket.vehicle.plate" th:field="*{vehicle.plate}" class="form-control w-full p-2 rounded-lg border border-gray-300" placeholder="Ex: ABC1234" required>
                 </div>
-
-                <!-- Opção de Escolher Veículo Existente ou Criar Novo -->
                 <div class="form-group">
-                    <label for="vehicleSelection" class="font-semibold text-lg">Veículo</label>
-                    <select id="vehicleSelection" name="vehicleSelection" class="form-control w-full p-2 rounded-lg border border-gray-300" required>
-                        <option value="existing">Escolher um veículo existente</option>
-                        <option value="new">Cadastrar novo veículo</option>
-                    </select>
+                    <label for="model" class="font-semibold text-lg">Modelo</label>
+                    <input type="text" id="model" name="ticket.vehicle.model" th:field="*{vehicle.model}" class="form-control w-full p-2 rounded-lg border border-gray-300" required>
                 </div>
-
-                <!-- Veículo Existente -->
-                <div id="existingVehicle" class="form-group" style="display: none;">
-                    <label for="vehicle" class="font-semibold text-lg">Escolha o Veículo</label>
-                    <select id="vehicle" name="vehicle" th:field="*{vehicle}" class="form-control w-full p-2 rounded-lg border border-gray-300">
-                        <option th:each="vehicle : ${vehicles}" th:value="${vehicle.id}" th:text="${vehicle.model}"></option>
-                    </select>
-                </div>
-
-
-                <!-- Novo Veículo -->
-                <div id="newVehicle" class="form-group hidden">
-                    <h3 class="font-semibold text-lg mb-4">Cadastrar Novo Veículo</h3>
-                    <div class="form-group">
-                        <label for="plate" class="font-semibold text-lg">Placa</label>
-                        <input type="text" id="plate" name="ticket.vehicle.plate" th:field="*{vehicle.plate}" class="form-control w-full p-2 rounded-lg border border-gray-300" placeholder="Ex: ABC1234" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="model" class="font-semibold text-lg">Modelo</label>
-                        <input type="text" id="model" name="ticket.vehicle.model" th:field="*{vehicle.model}" class="form-control w-full p-2 rounded-lg border border-gray-300" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="type" class="font-semibold text-lg">Tipo</label>
-                        <select id="type" name="ticket.vehicle.type" th:field="*{vehicle.type}" class="form-control w-full p-2 rounded-lg border border-gray-300" required>
-                            <option th:each="type : ${vehicleTypes}" th:value="${type}" th:text="${type}"></option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Prioridade -->
                 <div class="form-group">
-                    <label for="priorityType" class="font-semibold text-lg">Prioridade</label>
-                    <select id="priorityType" name="priorityType" th:field="*{priorityType}" class="form-control w-full p-2 rounded-lg border border-gray-300" required>
-                        <option th:each="priorityType : ${priorityTypes}" th:value="${priorityType}" th:text="${priorityType}"></option>
+                    <label for="type" class="font-semibold text-lg">Tipo</label>
+                    <select id="type" name="ticket.vehicle.type" th:field="*{vehicle.type}" class="form-control w-full p-2 rounded-lg border border-gray-300" required>
+                        <option th:each="type : ${vehicleTypes}" th:value="${type}" th:text="${type}"></option>
                     </select>
                 </div>
+            </div>
 
-                <!-- Botões -->
-                <div class="flex justify-end mt-4">
-                    <button type="submit" class="btn bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700">Salvar</button>
-                    <a href="/tickets" class="btn bg-gray-600 text-white py-2 px-4 rounded-lg ml-2 hover:bg-gray-700">Cancelar</a>
-                </div>
+            <div class="form-group">
+                <label for="priorityType" class="font-semibold text-lg">Prioridade</label>
+                <select id="priorityType" name="priorityType" th:field="*{priorityType}" class="form-control w-full p-2 rounded-lg border border-gray-300" required>
+                    <option th:each="priorityType : ${priorityTypes}" th:value="${priorityType}" th:text="${priorityType}"></option>
+                </select>
+            </div>
 
-            </form>
-        </div>
+            <div class="flex justify-end mt-4">
+                <button type="submit" class="btn bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700">Salvar</button>
+                <a href="/tickets" class="btn bg-gray-600 text-white py-2 px-4 rounded-lg ml-2 hover:bg-gray-700">Cancelar</a>
+            </div>
+        </form>
     </div>
 </div>
-
-<script>
-    document.getElementById('vehicleSelection').addEventListener('change', function() {
-        const vehicleSelection = this.value;
-        const existingVehicleDiv = document.getElementById('existingVehicle');
-        const newVehicleDiv = document.getElementById('newVehicle');
-
-        if (vehicleSelection === 'existing') {
-            existingVehicleDiv.style.display = 'block';
-            newVehicleDiv.style.display = 'none';
-        } else if (vehicleSelection === 'new') {
-            existingVehicleDiv.style.display = 'none';
-            newVehicleDiv.style.display = 'block';
-        }
-    });
-</script>
 
 </body>
 </html>
