@@ -29,7 +29,7 @@ public class TicketService {
                 ticket.getDateEnd(), ticket.getPriorityType());
         Optional<Vacancy> firstVacancy = vacancies.stream().findFirst();
 
-        if (firstVacancy.isEmpty()) return "hasError=true&message=" + "O Estacionamento já está cheio!";
+//        if (firstVacancy.isEmpty()) return "hasError=true&message=" + "O Estacionamento já está cheio!";
 
         Vacancy vacancy = firstVacancy.get();
         ticket.setVacancy(vacancy);
@@ -54,12 +54,20 @@ public class TicketService {
         ticketRepository.save(ticket);
     }
 
-
     public void deleteTicket(String id) {
         ticketRepository.deleteById(id);
     }
 
     public float calculatePayment(Ticket ticket) {
-        return ticket.getPaymentTotal();
+        ticket.calcularValor();
+        return (float) (float) ticket.getPaymentTotal();
+    }
+
+    public void finalizePayment(String id, float valorPago) {
+        Ticket ticket = ticketRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("Ticket não encontrado"));
+
+        ticket.finalizarPagamento(valorPago);
+        ticketRepository.save(ticket);
     }
 }
