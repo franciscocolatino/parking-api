@@ -26,37 +26,35 @@
   </div>
 
   <div class="bg-white p-6 rounded shadow">
-    <div th:if="${#lists.size(parkings) > 0}">
-      <table class="table table-striped">
-        <thead class="thead-dark">
-        <tr>
-          <th>Nome</th>
-          <th>Localização</th>
-          <th>Capacidade Total</th>
-          <th>Vagas Disponíveis</th>
-          <th>Ações</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="parking : ${parkings}">
-          <td th:text="${parking.name}">Nome do Estacionamento</td>
-          <td th:text="${parking.address}">Localização</td>
-          <td th:text="${parking.totalCapacity}">Capacidade Total</td>
-          <td th:text="${parking.vacanciesAvailable}">Vagas Disponíveis</td>
-          <td>
-            <a th:href="@{/parking/edit/{id}(id=${parking.id})}" class="btn btn-primary mr-2">Editar</a>
-            <a th:href="@{/parking/delete/{id}(id=${parking.id})}" class="btn btn-danger" onclick="return confirm('Você tem certeza que deseja deletar este estacionamento?')">Deletar</a>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-
     <div th:if="${#lists.size(parkings) == 0}" class="text-center text-gray-600">
       <p class="text-lg">Nenhum estacionamento cadastrado no momento.</p>
       <p class="text-sm mt-2">Clique no botão "Adicionar Novo Estacionamento" para criar um.</p>
     </div>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Nome</th>
+        <th>Localização</th>
+        <th>Capacidade Total</th>
+        <th>Vagas Disponíveis</th>
+        <th>Ações</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="parking : ${parkings}">
+        <td th:text="${parking.name}">Nome do Estacionamento</td>
+        <td th:text="${parking.address}">Localização</td>
+        <td th:text="${parking.totalCapacity}">Capacidade Total</td>
+        <td th:text="${parking.vacanciesAvailable}">Vagas Disponíveis</td>
+        <td>
+          <a th:href="@{/parking/edit/{id}(id=${parking.id})}" class="btn btn-primary mr-2">Editar</a>
+          <a th:href="@{/parking/delete/{id}(id=${parking.id})}" class="btn btn-danger" onclick="return confirm('Você tem certeza que deseja deletar este estacionamento?')">Deletar</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </div>
+
 </body>
 </html>
