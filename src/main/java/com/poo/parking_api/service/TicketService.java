@@ -2,6 +2,7 @@ package com.poo.parking_api.service;
 
 import com.poo.parking_api.domain.ticket.Ticket;
 import com.poo.parking_api.domain.ticket.TicketStatus;
+import com.poo.parking_api.domain.user.User;
 import com.poo.parking_api.domain.vacancy.Vacancy;
 import com.poo.parking_api.repository.TicketRepository;
 import com.poo.parking_api.repository.VacancyRepository;
@@ -22,6 +23,8 @@ public class TicketService {
 
     @Autowired
     private VacancyRepository vacancyRepository;
+    @Autowired
+    private VehicleService vehicleService;
 
     public String createTicket(Ticket ticket) {
         List<Vacancy> vacancies = vacancyRepository.findAvailableVacancyByParking(
@@ -35,6 +38,21 @@ public class TicketService {
         ticket.setVacancy(vacancy);
         ticketRepository.save(ticket);
         return "hasSuccess=true&message=" + "Ticket criado com sucesso!";
+    }
+
+    public String createTicketOperator(Ticket ticket, User user) {
+        vehicleService.create(ticket.getVehicle());
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        LocalDateTime dateStart = currentDateTime;
+        LocalDateTime dateEnd = currentDateTime.plusHours(5);
+        ticket.setDateStart(dateStart);
+        ticket.setDateEnd(dateEnd);
+
+        ticket.setParking(user.getParking());
+        ticket.setUser(user);
+        String message = this.createTicket(ticket);
+        return message;
     }
 
     public List<Ticket> getAllTickets() {
@@ -53,13 +71,7 @@ public class TicketService {
 
         ticketRepository.save(ticket);
     }
-
-
     public void deleteTicket(String id) {
         ticketRepository.deleteById(id);
-    }
-
-    public float calculatePayment(Ticket ticket) {
-        return ticket.getPaymentTotal();
     }
 }

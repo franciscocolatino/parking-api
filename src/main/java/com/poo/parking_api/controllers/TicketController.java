@@ -35,8 +35,6 @@ public class TicketController {
     private UserService userService;
     @Autowired
     private VehicleService vehicleService;
-    @Autowired
-    private VehicleRepository vehicleRepository;
 
     @GetMapping("/tickets")
     public String tickets(Model model) {
@@ -61,21 +59,11 @@ public class TicketController {
     }
 
     @PostMapping("/ticket/operator_new")
-    public String generateTicketOperator(@ModelAttribute Ticket ticket, @AuthenticationPrincipal UserDetails userDetails) {
-        vehicleService.create(ticket.getVehicle());
-        LocalDateTime currentDateTime = LocalDateTime.now();
-
-        LocalDateTime dateStart = currentDateTime;
-        LocalDateTime dateEnd = currentDateTime.plusHours(5);
-        ticket.setDateStart(dateStart);
-        ticket.setDateEnd(dateEnd);
-
+    public String createTicketOperator(@ModelAttribute Ticket ticket, @AuthenticationPrincipal UserDetails userDetails) {
         String name = userDetails.getUsername();
         User user = userService.findByName(name);
 
-        ticket.setParking(user.getParking());
-        ticket.setUser(user);
-        String message = ticketService.createTicket(ticket);
+        String message = ticketService.createTicketOperator(ticket, user);
         return "redirect:/tickets?" + message;
     }
 
@@ -103,14 +91,14 @@ public class TicketController {
     }
 
     @GetMapping("/ticket/{id}")
-    public String getTicket(@PathVariable String id, Model model) {
+    public String showTicket(@PathVariable String id, Model model) {
         model.addAttribute("ticket", ticketService.getTicket(id));
         model.addAttribute("statuses", TicketStatus.values());
         return "ticket/show";
     }
 
     @PostMapping("/ticket/update/{id}")
-    public String updateTicketStatus(@PathVariable String id, @RequestParam(value = "status", required = false) TicketStatus status,
+    public String updateTicket(@PathVariable String id, @RequestParam(value = "status", required = false) TicketStatus status,
                                      @RequestParam(value = "dateEnd", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime dateEnd,
                                      Model model) {
         try {
@@ -120,11 +108,6 @@ public class TicketController {
         }
 
         return "redirect:/ticket/" + id + "?hasSuccess=true&message=Ticket atualizado com sucesso!";
-    }
-
-    @PostMapping("/payment")
-    public float calculatePayment(@RequestBody Ticket ticket) {
-        return ticketService.calculatePayment(ticket);
     }
 
     @ExceptionHandler(IllegalStateException.class)
